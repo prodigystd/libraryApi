@@ -1,0 +1,41 @@
+version: '3'
+services:
+  php-fpm:
+    build: docker/php-fpm
+    ports:
+      - 9000:9000
+    volumes:
+      - ./:/var/www/html/
+    links:
+      - db
+    networks:
+      - internal
+  nginx:
+    build: docker/nginx
+    ports:
+      - 8080:80
+    volumes:
+      - ./:/var/www/html/
+    links:
+      - db
+      - php-fpm
+    networks:
+      - internal
+  db:
+    ports:
+      - 3306:3306
+    image: mysql:5.7
+    restart: always
+    volumes:
+      - ./:/var/www/html/
+      # - ./dump.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      MYSQL_DATABASE: library
+      MYSQL_USER: library
+      MYSQL_PASSWORD: library
+      MYSQL_ROOT_PASSWORD: library
+    networks:
+      - internal
+networks:
+  internal:
+    driver: bridge
