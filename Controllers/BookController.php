@@ -1,6 +1,6 @@
 <?php
 
-namespace Controllers;
+namespace LibraryApi\Controllers;
 
 class BookController
 {

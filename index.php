@@ -12,7 +12,7 @@ function autoload($className)
         $fileName  = str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
     }
     $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
-    require $fileName;
+    require_once $fileName;
 }
 spl_autoload_register('autoload');
 include 'routes.php';
@@ -24,7 +24,10 @@ $routeKeyToFind = $method . ', ' . rtrim($url, "/");
 
 if (isset($routes[$routeKeyToFind])) {
     $action = explode('@', $routes[$routeKeyToFind]);
-    echo call_user_func(["\LibraryApi\Controllers\\". $action[0], $action[1]]);
+    $controllerName = "\LibraryApi\Controllers\\". $action[0];
+    $controllerObject = new $controllerName();
+    $methodName = $action[1];
+    echo call_user_func([$controllerObject, $methodName]);
 } else {
     echo 'Route is not found';
 }
