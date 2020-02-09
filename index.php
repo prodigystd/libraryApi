@@ -21,13 +21,13 @@ $url = $_SERVER['REQUEST_URI'];
 $method = $_SERVER['REQUEST_METHOD'];
 
 $routeKeyToFind = $method . ', ' . rtrim($url, "/");
+$routeKeyToFind = explode('?', $routeKeyToFind)[0];
 
 if (isset($routes[$routeKeyToFind])) {
     $action = explode('@', $routes[$routeKeyToFind]);
     $controllerName = "\LibraryApi\Controllers\\". $action[0];
     $controllerObject = new $controllerName();
-    $methodName = $action[1];
-    echo call_user_func([$controllerObject, $methodName]);
+    echo call_user_func([$controllerObject, $action[1]]);
 } else {
     echo 'Route is not found';
 }

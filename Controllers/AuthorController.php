@@ -2,15 +2,12 @@
 
 namespace LibraryApi\Controllers;
 
-
-
-
 class AuthorController extends ApiController
 {
 
     public function byAuthor()
     {
-        echo 'getQueryParams' . $this->getQueryParams() . PHP_EOL;
+        var_dump($this->getQueryParams());
         return 'Successfully called byAuthor()';
     }
 

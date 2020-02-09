@@ -8,7 +8,13 @@ class ApiController
 {
     protected function getQueryParams()
     {
-        return $_SERVER['QUERY_STRING'];
+        return $_GET;
+    }
+
+
+    protected function getQueryParam($param)
+    {
+        return isset($_GET[$param]) ? $_GET[$param] : null;
     }
 
 
