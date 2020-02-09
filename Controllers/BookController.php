@@ -19,10 +19,7 @@ class BookController extends ApiController
     public function ByAuthor()
     {
         $authorName = $this->getQueryParam('name');
-//        var_dump($this->bookRepository->getBookByAuthor());
-//        die;
         return $this->response($this->bookRepository->getBookByAuthor());
-//        return 'Successfully called byAuthor()';
     }
 
 }
