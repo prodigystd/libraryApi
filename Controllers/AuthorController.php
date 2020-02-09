@@ -7,6 +7,6 @@ class AuthorController
 
     public function byAuthor()
     {
-        echo 'Successfully called byAuthor()';
+        return 'Successfully called byAuthor()';
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 function autoload($className)
 {
     $className = ltrim($className, '\\');
@@ -14,21 +15,16 @@ function autoload($className)
     require $fileName;
 }
 spl_autoload_register('autoload');
+include 'routes.php';
 
 $url = $_SERVER['REQUEST_URI'];
 $method = $_SERVER['REQUEST_METHOD'];
-
-$routes = [
-    'GET, /books-by-author' => 'AuthorController@byAuthor',
-    'GET, /author-by-book' => 'AuthorController@byBook',
-    'GET, /books-by-author-count' => 'BookController@byAuthorCount',
-];
 
 $routeKeyToFind = $method . ', ' . rtrim($url, "/");
 
 if (isset($routes[$routeKeyToFind])) {
     $action = explode('@', $routes[$routeKeyToFind]);
-    call_user_func(["\LibraryApi\Controllers\\". $action[0], $action[1]]);
+    echo call_user_func(["\LibraryApi\Controllers\\". $action[0], $action[1]]);
 } else {
     echo 'Route is not found';
 }
