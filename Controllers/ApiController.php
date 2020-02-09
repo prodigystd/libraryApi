@@ -18,9 +18,10 @@ class ApiController
     }
 
 
-    protected function response($data)
+    protected function response($data, int $code = 200)
     {
         header('Content-Type: application/json');
+        http_response_code($code);
         return json_encode($data);
     }
 
