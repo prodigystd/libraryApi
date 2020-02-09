@@ -2,7 +2,7 @@
 
 
 $routes = [
-    'GET, /books-by-author' => 'AuthorController@byAuthor',
-    'GET, /author-by-book' => 'AuthorController@byBook',
-    'GET, /books-by-author-count' => 'BookController@byAuthorCount',
+    'GET, /books/by-author' => 'BookController@ByAuthor',
+    'GET, /books/by-author-count' => 'BookController@byAuthorCount',
+    'GET, /author/by-book' => 'AuthorController@byBook',
 ];

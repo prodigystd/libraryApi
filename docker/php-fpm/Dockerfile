@@ -1,24 +1,18 @@
-FROM php:7.1-fpm
+FROM php:7.2-fpm
 
-MAINTAINER Nicola Pietroluongo <nik.longstone@gmail.com>
-
-RUN apt-get update && apt-get install -y \
+RUN apt update && apt install -y --no-install-recommends \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
-        libmcrypt-dev \
-        libpng-dev \
-        apt-utils \
-        libxml2-dev \
+        libpng-dev git zip  \
+        wget \
         zlib1g-dev \
-        zip \
-        libcurl4 \
-        libpcre3-dev \
-        libcurl4-openssl-dev \
-    && docker-php-ext-install -j$(nproc) iconv mcrypt pdo_mysql mbstring \
+    && docker-php-ext-install -j$(nproc) iconv \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd \
-    && docker-php-ext-install soap \
-    && docker-php-ext-install zip
+    && docker-php-ext-install zip \
+    && docker-php-ext-install bcmath \
+    && docker-php-ext-install mysqli \
+    && rm -r /var/lib/apt/lists/*
 
 COPY symfony.pool.conf  /usr/local/etc/
 
@@ -26,5 +20,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ 
 
 RUN usermod -u 1000 www-data
 
+WORKDIR /var/www/html
 EXPOSE 9000
 CMD ["php-fpm", "-F"]
+

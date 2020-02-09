@@ -2,14 +2,22 @@
 
 namespace LibraryApi\Controllers;
 
+use LibraryApi\Repositories\AuthorRepository;
+
 class AuthorController extends ApiController
 {
 
-    public function byAuthor()
+    /**
+     * @var AuthorRepository
+     */
+    private $authorRepository;
+
+    public function __construct()
     {
-        var_dump($this->getQueryParams());
-        return 'Successfully called byAuthor()';
+        $this->authorRepository = new AuthorRepository();
     }
+
+
 
 
 }
