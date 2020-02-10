@@ -24,7 +24,7 @@ http://localhost:8080/author/authors-by-book?book_name=Война
 
 выдача списка книг, написанных ровно 3 соавторами. Результат: книга - количество соавторов.
 Тип запроса: GET 
-Параметр: book_name
+Параметр: author_count
 Тип параметра: целое число
 http://localhost:8080/book/books-by-author-count?author_count=3
 
