@@ -6,7 +6,7 @@ namespace LibraryApi\Repositories;
 
 class BookRepository extends BaseRepository
 {
-    public function getBooksByAuthor($authorName)
+    public function getByAuthor($authorName)
     {
         return $this->dataBase
             ->select(
@@ -17,7 +17,7 @@ class BookRepository extends BaseRepository
     }
 
 
-    public function getBooksByAuthorCount($authorCount)
+    public function getByAuthorCount($authorCount)
     {
         return $this->dataBase
             ->select('select book.id, book.name, book.description, book.year, book.genre, count(author_book.author_id) as author_count

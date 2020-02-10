@@ -7,7 +7,7 @@ use LibraryApi\Repositories\BookRepository;
 class BookController extends ApiController
 {
     /**
-     * @var BookRepository
+     * @var BookRepository $bookRepository
      */
     private $bookRepository;
 
@@ -23,7 +23,7 @@ class BookController extends ApiController
             return $this->response($this->serialize([]));
         }
         return $this->response(
-            $this->serialize($this->bookRepository->getBooksByAuthor($authorName)));
+            $this->serialize($this->bookRepository->getByAuthor($authorName)));
     }
 
 
@@ -34,7 +34,7 @@ class BookController extends ApiController
             return $this->response($this->serialize([]));
         }
         return $this->response(
-            $this->serialize($this->bookRepository->getBooksByAuthorCount($authorCount)));
+            $this->serialize($this->bookRepository->getByAuthorCount($authorCount)));
     }
 
 
