@@ -19,22 +19,22 @@ docker-compose up
 
 # Описание api:
 
-выдача всех книг одного автора:
-Тип запроса: GET 
-Параметр: author_name
-Тип параметра: строка
+выдача всех книг одного автора:<br />
+Тип запроса: GET <br />
+Параметр: author_name<br />
+Тип параметра: строка<br />
 http://localhost:8080/book/books-by-author?author_name=Толстой
 
-выдача автора по книге:
-Тип запроса: GET 
-Параметр: book_name
-Тип параметра: строка
-http://localhost:8080/author/authors-by-book?book_name=Война
+выдача автора по книге:<br />
+Тип запроса: GET <br />
+Параметр: book_name<br />
+Тип параметра: строка<br />
+http://localhost:8080/author/authors-by-book?book_name=Война<br />
 
 
-выдача списка книг, написанных ровно 3 соавторами. Результат: книга - количество соавторов.
-Тип запроса: GET 
-Параметр: author_count
-Тип параметра: целое число
-http://localhost:8080/book/books-by-author-count?author_count=3
+выдача списка книг, написанных ровно 3 соавторами. Результат: книга - количество соавторов:<br />
+Тип запроса: GET <br />
+Параметр: author_count<br />
+Тип параметра: целое число<br />
+http://localhost:8080/book/books-by-author-count?author_count=3<br />
 
