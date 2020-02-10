@@ -7,7 +7,7 @@ namespace LibraryApi\Database;
 class Config
 {
     private static $properties = [
-        'host' => 'libraryapi_db_1',
+        'host' => 'libraryapi_db',
         'userName' => 'library',
         'password' => 'library',
         'dataBaseName' => 'library',

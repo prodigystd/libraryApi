@@ -22,13 +22,14 @@ services:
     networks:
       - internal
   db:
+    container_name: libraryapi_db
     ports:
       - 3306:3306
     image: mysql:5.7
     restart: always
     volumes:
       - ./:/var/www/html/
-      # - ./dump.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./library-2020_02_10_11_54_02-dump.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       MYSQL_DATABASE: library
       MYSQL_USER: library
