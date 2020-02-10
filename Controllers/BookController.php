@@ -38,7 +38,7 @@ class BookController extends ApiController
     }
 
 
-    public function serialize($data)
+    public function serialize(array $data)
     {
         return ['books' => $data];
     }

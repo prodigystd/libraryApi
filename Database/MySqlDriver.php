@@ -8,7 +8,7 @@ class MySqlDriver implements DataBaseDriver
 {
     private $connection;
 
-    public function select($sqlQuery, $params = [])
+    public function select(string $sqlQuery, array $params = []): array
     {
         $this->connect();
         $preparedStatement = $this->connection->prepare($sqlQuery);
