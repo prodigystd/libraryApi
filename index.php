@@ -29,7 +29,8 @@ if (isset($routes[$routeKeyToFind])) {
     $controllerObject = new $controllerName();
     echo call_user_func([$controllerObject, $action[1]]);
 } else {
-    echo 'Route is not found';
+    $controllerObject = new \LibraryApi\Controllers\ApiController();
+    echo $controllerObject->response(['error' => 'Route is not found'], 404);
 }
 
 
