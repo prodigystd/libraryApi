@@ -6,18 +6,18 @@ namespace LibraryApi\Repositories;
 
 class BookRepository extends BaseRepository
 {
-    public function getByAuthor($authorName)
+    public function getByAuthor($authorName): array
     {
         return $this->dataBase
             ->select(
-                'select book.* from book 
+                'select author.fullname as author_name, book.* from book 
                             inner join author_book on book.id = author_book.book_id
                             inner join author on author.id = author_book.author_id and author.fullname like ?'
                 , ['s' => '%' . $authorName . '%']); // 's' specifies the variable type => 'string'
     }
 
 
-    public function getByAuthorCount($authorCount)
+    public function getByAuthorCount($authorCount): array
     {
         return $this->dataBase
             ->select('select book.id, book.name, book.description, book.year, book.genre, count(author_book.author_id) as author_count
