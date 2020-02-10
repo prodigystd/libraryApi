@@ -13,7 +13,7 @@ class MySqlDriver implements DataBaseDriver
         $this->connect();
         $preparedStatement = $this->connection->prepare($sqlQuery);
         foreach ($params as $paramType => $paramValue) {
-            $preparedStatement->bind_param($paramType, $paramValue);     // 's' specifies the variable type => 'string'
+            $preparedStatement->bind_param($paramType, $paramValue);
         }
         $preparedStatement->execute();
         $result = $preparedStatement->get_result();
