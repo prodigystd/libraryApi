@@ -29,7 +29,7 @@ class BookController extends ApiController
 
     public function ByAuthorCount()
     {
-        $authorCount = $this->getQueryParam('author_count');
+        $authorCount = (int)$this->getQueryParam('author_count');
         if (empty($authorCount) && $authorCount < 1) {
             return $this->response($this->serialize([]));
         }
