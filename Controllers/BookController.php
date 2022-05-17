@@ -16,7 +16,7 @@ class BookController extends ApiController
         $this->bookRepository = new BookRepository();
     }
 
-    public function ByAuthor()
+    public function byAuthor()
     {
         $authorName = $this->getQueryParam('author_name');
         if (empty($authorName)) {
@@ -27,7 +27,7 @@ class BookController extends ApiController
     }
 
 
-    public function ByAuthorCount()
+    public function byAuthorCount()
     {
         $authorCount = (int)$this->getQueryParam('author_count');
         if (empty($authorCount) && $authorCount < 1) {
