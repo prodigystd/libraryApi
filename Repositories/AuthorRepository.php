@@ -3,8 +3,9 @@
 
 namespace LibraryApi\Repositories;
 
+use LibraryApi\Repositories\Interfaces\AuthorRepositoryInterface;
 
-class AuthorRepository extends BaseRepository
+class AuthorRepository extends BaseRepository implements AuthorRepositoryInterface
 {
 
     public function getByBook($bookName): array

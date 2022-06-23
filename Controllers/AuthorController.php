@@ -2,19 +2,18 @@
 
 namespace LibraryApi\Controllers;
 
-use LibraryApi\Repositories\AuthorRepository;
+use LibraryApi\Repositories\Interfaces\AuthorRepositoryInterface;
 
 class AuthorController extends ApiController
 {
-
     /**
-     * @var AuthorRepository $authorRepository
+     * @var AuthorRepositoryInterface $authorRepository
      */
     private $authorRepository;
 
-    public function __construct()
+    public function __construct(AuthorRepositoryInterface $authorRepository)
     {
-        $this->authorRepository = new AuthorRepository();
+        $this->authorRepository = $authorRepository;
     }
 
 
