@@ -13,9 +13,11 @@ code according to PSR standards and
 it is forbidden to use different frameworks
 
 
+
 # Usage:
 In the root folder run:
 docker-compose-up
+
 
 # API description:
 
@@ -38,7 +40,10 @@ Parameter: author_count<br />
 Parameter type: integer<br />
 http://localhost:8080/book/books-by-author-count?author_count=2<br />
 
-#Описание
+
+
+
+# Описание
 
 Спроектировать схему БД и backend для хранения библиотеки. Интересуют авторы и книги. Взаимодействие с пользователем происходит посредством HTTP запросов к API. Все ответы представляют собой JSON объекты.
 
