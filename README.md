@@ -4,10 +4,10 @@ Design a database schema and a backend for storing a library. It should store au
 
 The server implements the following methods:
 
-Selecting all books by one author
-Getting the author on the book
-Getting a list of books written by exactly 2 co-authors. Result: book - number of co-authors.
-Requirements:
+Selecting all books by one author<br />
+Getting the author on the book<br />
+Getting a list of books written by exactly 2 co-authors. Result: book - number of co-authors.<br />
+Requirements:<br />
 
 Code according to PSR standards and
 it is forbidden to use any frameworks or program libraries
@@ -49,10 +49,10 @@ http://localhost:8080/book/books-by-author-count?author_count=2<br />
 
 Сервер реализует следующие методы:
 
-выдача всех книг одного автора
-выдача автора по книге
-выдача списка книг, написанных ровно 2 соавторами. Результат: книга - количество соавторов.
-Требования:
+выдача всех книг одного автора<br />
+выдача автора по книге<br />
+выдача списка книг, написанных ровно 2 соавторами. Результат: книга - количество соавторов.<br />
+Требования:<br />
 
 оформить код по стандартам PSR и
 запрещается использовать различные framework’и
