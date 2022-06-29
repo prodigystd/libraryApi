@@ -4,13 +4,13 @@ Design a database schema and a backend for storing a library. It should store au
 
 The server implements the following methods:
 
-selecting all books by one author
-getting the author on the book
-getting a list of books written by exactly 2 co-authors. Result: book - number of co-authors.
+Selecting all books by one author
+Getting the author on the book
+Getting a list of books written by exactly 2 co-authors. Result: book - number of co-authors.
 Requirements:
 
-code according to PSR standards and
-it is forbidden to use different frameworks
+Code according to PSR standards and
+it is forbidden to use any frameworks or program libraries
 
 
 
@@ -21,20 +21,20 @@ docker-compose-up
 
 # API description:
 
-listing all books by the same author:<br />
+Listing all books by the same author:<br />
 Request type: GET <br />
 Parameter: author_name<br />
 Parameter type: string<br />
 http://localhost:8080/book/books-by-author?author_name=Antoine
 
-getting the author by the book:<br />
+Getting the author by the book:<br />
 Request type: GET <br />
 Parameter: book_name<br />
 Parameter type: string<br />
 http://localhost:8080/author/authors-by-book?book_name=Harry<br />
 
 
-getting a list of books written by exactly 2 co-authors. Result: book - number of coauthors:<br />
+Getting a list of books written by exactly 2 co-authors. Result: book - number of coauthors:<br />
 Request type: GET <br />
 Parameter: author_count<br />
 Parameter type: integer<br />
