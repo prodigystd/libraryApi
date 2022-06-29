@@ -1,4 +1,4 @@
-# libraryApi
+# Description
 
 Design a database schema and a backend for storing a library. It should store authors and their books. User interaction occurs through HTTP requests to the API. All responses are JSON objects.
 
@@ -38,7 +38,7 @@ Parameter: author_count<br />
 Parameter type: integer<br />
 http://localhost:8080/book/books-by-author-count?author_count=2<br />
 
-#
+#Описание
 
 Спроектировать схему БД и backend для хранения библиотеки. Интересуют авторы и книги. Взаимодействие с пользователем происходит посредством HTTP запросов к API. Все ответы представляют собой JSON объекты.
 
