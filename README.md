@@ -1,53 +1,58 @@
-# libraryApi
+# Description
 
 Design a database schema and a backend for storing a library. It should store authors and their books. User interaction occurs through HTTP requests to the API. All responses are JSON objects.
 
 The server implements the following methods:
 
-selecting all books by one author
-getting the author on the book
-getting a list of books written by exactly 2 co-authors. Result: book - number of co-authors.
-Requirements:
+Selecting all books by one author<br />
+Getting the author on the book<br />
+Getting a list of books written by exactly 2 co-authors. Result: book - number of co-authors.<br />
+Requirements:<br />
 
-code according to PSR standards and
-it is forbidden to use different frameworks
+Code according to PSR standards and
+it is forbidden to use any frameworks or program libraries
+
 
 
 # Usage:
 In the root folder run:
 docker-compose-up
 
+
 # API description:
 
-listing all books by the same author:<br />
+Listing all books by the same author:<br />
 Request type: GET <br />
 Parameter: author_name<br />
 Parameter type: string<br />
 http://localhost:8080/book/books-by-author?author_name=Antoine
 
-getting the author by the book:<br />
+Getting the author by the book:<br />
 Request type: GET <br />
 Parameter: book_name<br />
 Parameter type: string<br />
 http://localhost:8080/author/authors-by-book?book_name=Harry<br />
 
 
-getting a list of books written by exactly 2 co-authors. Result: book - number of coauthors:<br />
+Getting a list of books written by exactly 2 co-authors. Result: book - number of coauthors:<br />
 Request type: GET <br />
 Parameter: author_count<br />
 Parameter type: integer<br />
 http://localhost:8080/book/books-by-author-count?author_count=2<br />
 
-#
+
+
+
+# Описание
 
 Спроектировать схему БД и backend для хранения библиотеки. Интересуют авторы и книги. Взаимодействие с пользователем происходит посредством HTTP запросов к API. Все ответы представляют собой JSON объекты.
 
 Сервер реализует следующие методы:
 
-выдача всех книг одного автора
-выдача автора по книге
-выдача списка книг, написанных ровно 2 соавторами. Результат: книга - количество соавторов.
-Требования:
+выдача всех книг одного автора<br />
+выдача автора по книге<br />
+выдача списка книг, написанных ровно 2 соавторами. Результат: книга - количество соавторов.<br />
+Требования:<br />
 
 оформить код по стандартам PSR и
 запрещается использовать различные framework’и
