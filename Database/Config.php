@@ -15,12 +15,12 @@ class Config
     ];
 
     /**
-     * @param $propertyName
+     * @param string $propertyName
      * @return string
      */
     public static function get(string $propertyName): string
     {
-        return isset(static::$properties[$propertyName]) ? static::$properties[$propertyName] : '';
+        return static::$properties[$propertyName] ?? '';
     }
 
 

@@ -16,29 +16,31 @@ class BookController extends ApiController
         $this->bookRepository = $bookRepository;
     }
 
-    public function byAuthor()
+    public function byAuthor(): string
     {
         $authorName = $this->getQueryParam('author_name');
         if (empty($authorName)) {
             return $this->response($this->serialize([]));
         }
         return $this->response(
-            $this->serialize($this->bookRepository->getByAuthor($authorName)));
+            $this->serialize($this->bookRepository->getByAuthor($authorName))
+        );
     }
 
 
-    public function byAuthorCount()
+    public function byAuthorCount(): string
     {
         $authorCount = (int)$this->getQueryParam('author_count');
         if (empty($authorCount) && $authorCount < 1) {
             return $this->response($this->serialize([]));
         }
         return $this->response(
-            $this->serialize($this->bookRepository->getByAuthorCount($authorCount)));
+            $this->serialize($this->bookRepository->getByAuthorCount($authorCount))
+        );
     }
 
 
-    public function serialize(array $data)
+    public function serialize(array $data): array
     {
         return ['books' => $data];
     }

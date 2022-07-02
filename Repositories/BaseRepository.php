@@ -3,26 +3,19 @@
 
 namespace LibraryApi\Repositories;
 
-
-use LibraryApi\Database\DataBaseDriver;
-use LibraryApi\Database\MySqlDriver;
+use LibraryApi\Database\DataBaseDriverInterface;
+use LibraryApi\DI\DependencyInjectionContainer;
 
 class BaseRepository
 {
     /**
-     * @var DataBaseDriver $dataBase
+     * @var DataBaseDriverInterface $dataBase
      */
     protected $dataBase;
 
     public function __construct()
     {
-        $this->dataBase = $this->getDataBaseDriver();
-    }
-
-
-    protected function getDataBaseDriver(): DataBaseDriver
-    {
-        return new MySqlDriver();
+        $this->dataBase = DependencyInjectionContainer::instance()->make(DataBaseDriverInterface::class);
     }
 
 }

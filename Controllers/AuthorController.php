@@ -17,7 +17,7 @@ class AuthorController extends ApiController
     }
 
 
-    public function byBook()
+    public function byBook(): string
     {
         $bookName = $this->getQueryParam('book_name');
         if (empty($bookName)) {
@@ -28,12 +28,9 @@ class AuthorController extends ApiController
     }
 
 
-    public function serialize(array $data)
+    public function serialize(array $data): array
     {
         return ['authors' => $data];
     }
-
-
-
 
 }

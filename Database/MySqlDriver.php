@@ -4,7 +4,7 @@
 namespace LibraryApi\Database;
 
 
-class MySqlDriver implements DataBaseDriver
+class MySqlDriver implements DataBaseDriverInterface
 {
     private $connection;
 

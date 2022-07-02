@@ -16,14 +16,6 @@ class DependencyInjectionContainer
     protected static $instance;
 
     /**
-     * namespace  for  class. when pass class and method as string
-     *
-     * @var string
-     */
-    protected $namespace = "LibraryApi\Controllers\\";
-
-
-    /**
      *   get Singleton instance of the class
      *
      * @return static
@@ -45,8 +37,12 @@ class DependencyInjectionContainer
      */
     public function make($class, array $parameters = [])
     {
-        $classReflection = new ReflectionClass($this->namespace . $class);
-        $constructorParams = $classReflection->getConstructor()->getParameters();
+        $reflectionClass = new ReflectionClass($class);
+        $constructor = $reflectionClass->getConstructor();
+        if (!$constructor) {
+            return $this->createInstance($reflectionClass);
+        }
+        $constructorParams = $constructor->getParameters();
         $dependencies = [];
 
         /*
@@ -57,17 +53,8 @@ class DependencyInjectionContainer
             $type = $constructorParam->getType();
 
             if ($type && $type instanceof ReflectionNamedType) {
-                // make instance of this class :
-                $paramClassName = $constructorParam->getClass()->name;
-                if (isset(Bindings::$bindings[$paramClassName])) {
-                    $paramClassReflection = new ReflectionClass(Bindings::$bindings[$paramClassName]);
-                    $paramInstance = $paramClassReflection->newInstance();
-                } else {
-                    $paramInstance = $constructorParam->getClass()->newInstance();
-                }
-
-                // push to $dependencies array
-                $dependencies[] = $paramInstance;
+                // make instance of the param class and push it to $dependencies array
+                $dependencies[] = $this->createInstance($constructorParam->getClass());
 
             } else {
 
@@ -91,7 +78,24 @@ class DependencyInjectionContainer
 
         }
         // finally pass dependency and param to class instance
-        return $classReflection->newInstance(...$dependencies);
+        return $reflectionClass->newInstance(...$dependencies);
+    }
+
+
+    /**
+     * @param ReflectionClass $reflectionClass
+     * @param array $parameters
+     * @return object
+     * @throws \ReflectionException
+     */
+    private function createInstance(ReflectionClass $reflectionClass, array $parameters = [])
+    {
+        $className = $reflectionClass->getName();
+        if (isset(Bindings::$bindings[$className])) {
+            $boundReflectionClass = new ReflectionClass(Bindings::$bindings[$className]);
+            return $boundReflectionClass->newInstance(...$parameters);
+        }
+        return $reflectionClass->newInstance(...$parameters);
     }
 
 }

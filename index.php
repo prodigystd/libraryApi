@@ -1,6 +1,7 @@
 <?php
 
-use LibraryApi\Services\RoutingService;
+use LibraryApi\DI\DependencyInjectionContainer;
+use LibraryApi\Router\RouterInterface;
 
 function autoload($className)
 {
@@ -18,8 +19,9 @@ function autoload($className)
 }
 spl_autoload_register('autoload');
 
-$routingService = new RoutingService();
-$routingService->handle();
+/** @var RouterInterface $router */
+$router = DependencyInjectionContainer::instance()->make(RouterInterface::class);
+$router->handle();
 
 
 

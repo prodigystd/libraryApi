@@ -16,7 +16,7 @@ class ApiController
 
     protected function getQueryParam(string $param)
     {
-        return isset($_GET[$param]) ? $_GET[$param] : null;
+        return $_GET[$param] ?? null;
     }
 
 
