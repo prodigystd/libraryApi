@@ -3,7 +3,7 @@ services:
   php-fpm:
     build: docker/php-fpm
     ports:
-      - 9000:9000
+      - "9000:9000"
     volumes:
       - ./:/var/www/html/
     links:
@@ -13,7 +13,7 @@ services:
   nginx:
     build: docker/nginx
     ports:
-      - 8080:80
+      - "8080:80"
     volumes:
       - ./:/var/www/html/
     links:
@@ -24,7 +24,7 @@ services:
   db:
     container_name: libraryapi_db
     ports:
-      - 3306:3306
+      - "3306:3306"
     image: mysql:5.7
     restart: always
     volumes:
