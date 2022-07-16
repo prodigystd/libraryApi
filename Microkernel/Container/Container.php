@@ -1,12 +1,12 @@
 <?php
 
-namespace LibraryApi\DI;
+namespace LibraryApi\Microkernel\Container;
 
 use Exception;
 use ReflectionClass;
 use ReflectionNamedType;
 
-class DependencyInjectionContainer
+class Container implements ContainerInterface
 {
     /**
      * The container's  instance.
@@ -16,11 +16,26 @@ class DependencyInjectionContainer
     protected static $instance;
 
     /**
+     * @var array
+     */
+    private $bindings = [];
+
+    private function __construct()
+    {
+
+    }
+
+    private function __clone()
+    {
+
+    }
+
+    /**
      *   get Singleton instance of the class
      *
      * @return static
      */
-    public static function instance(): DependencyInjectionContainer
+    public static function instance(): Container
     {
         if (!static::$instance) {
             static::$instance = new static;
@@ -29,18 +44,30 @@ class DependencyInjectionContainer
         return static::$instance;
     }
 
+
+    /**
+     * @param $abstractClass
+     * @param $concreteClassOrObject
+     * @return void
+     */
+    public function bind($abstractClass, $concreteClassOrObject): void
+    {
+        $this->bindings[$abstractClass] = $concreteClassOrObject;
+    }
+
+
     /**
      * instantiate class with dependency and return class instance
      * @param $class - class name
      * @param array $parameters (optional) -- parameters as array . If constructor need any parameter
      * @throws \ReflectionException
      */
-    public function make($class, array $parameters = [])
+    public function make($class, array $parameters = []): object
     {
         $reflectionClass = new ReflectionClass($class);
         $constructor = $reflectionClass->getConstructor();
         if (!$constructor) {
-            return $this->createInstance($reflectionClass);
+            return $this->createInstance($reflectionClass, $parameters);
         }
         $constructorParams = $constructor->getParameters();
         $dependencies = [];
@@ -63,7 +90,7 @@ class DependencyInjectionContainer
                 // check this param value exist in $parameters
                 if (array_key_exists($name, $parameters)) { // if exist
 
-                    // push  value to $dependencies sequencially
+                    // push  value to $dependencies sequentially
                     $dependencies[] = $parameters[$name];
 
                 } else { // if not exist
@@ -88,11 +115,15 @@ class DependencyInjectionContainer
      * @return object
      * @throws \ReflectionException
      */
-    private function createInstance(ReflectionClass $reflectionClass, array $parameters = [])
+    private function createInstance(ReflectionClass $reflectionClass, array $parameters = []): object
     {
         $className = $reflectionClass->getName();
-        if (isset(Bindings::$bindings[$className])) {
-            $boundReflectionClass = new ReflectionClass(Bindings::$bindings[$className]);
+        if (isset($this->bindings[$className])) {
+            $boundClass = $this->bindings[$className];
+            if (is_object($boundClass)) {
+                return $boundClass;
+            }
+            $boundReflectionClass = new ReflectionClass($boundClass);
             return $boundReflectionClass->newInstance(...$parameters);
         }
         return $reflectionClass->newInstance(...$parameters);

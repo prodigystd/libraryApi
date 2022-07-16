@@ -1,7 +1,7 @@
 version: '3'
 services:
   php-fpm:
-    build: docker/php-fpm
+    build: Docker/php-fpm
     ports:
       - "9000:9000"
     volumes:
@@ -11,7 +11,7 @@ services:
     networks:
       - internal
   nginx:
-    build: docker/nginx
+    build: Docker/nginx
     ports:
       - "8080:80"
     volumes:

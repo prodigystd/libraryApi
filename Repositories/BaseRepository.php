@@ -3,8 +3,8 @@
 
 namespace LibraryApi\Repositories;
 
-use LibraryApi\Database\DataBaseDriverInterface;
-use LibraryApi\DI\DependencyInjectionContainer;
+use LibraryApi\Microkernel\Container\Container;
+use LibraryApi\Modules\Database\DataBaseDriverInterface;
 
 class BaseRepository
 {
@@ -15,7 +15,7 @@ class BaseRepository
 
     public function __construct()
     {
-        $this->dataBase = DependencyInjectionContainer::instance()->make(DataBaseDriverInterface::class);
+        $this->dataBase = Container::instance()->make(DataBaseDriverInterface::class);
     }
 
 }

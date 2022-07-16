@@ -1,12 +1,23 @@
 <?php
 
 
-namespace LibraryApi\Database;
+namespace LibraryApi\Modules\Database;
 
 
 class MySqlDriver implements DataBaseDriverInterface
 {
     private $connection;
+
+    /**
+     * @var Config
+     */
+    private $config;
+
+
+    public function setConfig(Config $config)
+    {
+        $this->config = $config;
+    }
 
     public function select(string $sqlQuery, array $params = []): array
     {
@@ -28,8 +39,13 @@ class MySqlDriver implements DataBaseDriverInterface
 
     private function connect()
     {
-        $this->connection = mysqli_connect(Config::get('host'), Config::get('userName'), Config::get('password'),
-            Config::get('dataBaseName'), Config::get('port'));
+        $this->connection = mysqli_connect(
+            $this->config->get('host'),
+            $this->config->get('userName'),
+            $this->config->get('password'),
+            $this->config->get('dataBaseName'),
+            $this->config->get('port')
+        );
 
         if (!$this->connection) {
             die("Connection failed: " . mysqli_connect_error());

@@ -1,7 +1,6 @@
 <?php
 
-use LibraryApi\DI\DependencyInjectionContainer;
-use LibraryApi\Router\RouterInterface;
+use LibraryApi\Microkernel\Microkernel;
 
 function autoload($className)
 {
@@ -19,9 +18,6 @@ function autoload($className)
 }
 spl_autoload_register('autoload');
 
-/** @var RouterInterface $router */
-$router = DependencyInjectionContainer::instance()->make(RouterInterface::class);
-$router->handle();
-
-
+$microkernel = new Microkernel();
+$microkernel->boot();
 
