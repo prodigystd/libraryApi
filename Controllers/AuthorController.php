@@ -18,7 +18,7 @@ class AuthorController extends ApiController
 
     public function index(): string
     {
-        $bookName = trim($this->getQueryParam('book_name'));
+        $bookName = trim($this->getQueryParam('book_name') ?? '');
         if (empty($bookName)) {
             return $this->response($this->serialize($this->authorRepository->getAll()));
         }

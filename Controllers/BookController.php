@@ -18,7 +18,7 @@ class BookController extends ApiController
 
     public function index(): string
     {
-        $authorName = trim($this->getQueryParam('author_name'));
+        $authorName = trim($this->getQueryParam('author_name') ?? '');
         $authorCount = (int)$this->getQueryParam('author_count');
 
         if ($authorName) {
