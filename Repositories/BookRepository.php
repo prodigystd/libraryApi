@@ -9,8 +9,7 @@ class BookRepository extends BaseRepository implements BookRepositoryInterface
 {
     public function getByAuthor($authorName): array
     {
-        return $this->dataBase
-            ->select(
+        return $this->select(
                 'SELECT 
                                 author.id AS author_id, 
                                 author.fullname AS author_fullname, 
@@ -30,8 +29,7 @@ class BookRepository extends BaseRepository implements BookRepositoryInterface
 
     public function getByAuthorCount($authorCount): array
     {
-        return $this->dataBase
-            ->select(
+        return $this->select(
                     'SELECT 
                                     book.id, 
                                     book.name, 
@@ -54,8 +52,7 @@ class BookRepository extends BaseRepository implements BookRepositoryInterface
 
     public function getAll(): array
     {
-        return $this->dataBase
-            ->select(
+        return $this->select(
                 'SELECT 
                                     *
                                 FROM 

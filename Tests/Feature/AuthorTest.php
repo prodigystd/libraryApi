@@ -19,7 +19,8 @@ final class AuthorTest extends TestCase
     {
         $response = $this->baseApi->client->get('/authors', [
             'query' => [
-                'book_name' => 'Harry'
+                'book_name' => 'Harry',
+                'is_test' => true
             ]
         ]);
 

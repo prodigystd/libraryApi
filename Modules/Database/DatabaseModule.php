@@ -12,13 +12,23 @@ class DatabaseModule extends BaseModule implements ModuleInterface
      */
     private $config;
 
+
     public function register()
     {
         $this->loadConfig();
-        /** @var DataBaseDriverInterface $database */
+        /** @var DatabaseDriverInterface $database */
         $database = new MySqlDriver();
         $database->setConfig($this->config);
-        $this->container->bind(DataBaseDriverInterface::class, $database);
+        $this->container->bind(DatabaseDriverInterface::class, $database);
+    }
+
+    public function registerTest()
+    {
+        $this->loadTestConfig();
+        /** @var DatabaseDriverInterface $database */
+        $database = new MySqlDriver();
+        $database->setConfig($this->config);
+        $this->container->bind(DatabaseDriverInterface::class, $database);
     }
 
     public function boot()
@@ -29,5 +39,10 @@ class DatabaseModule extends BaseModule implements ModuleInterface
     public function loadConfig()
     {
         $this->config = new Config(include dirname(__FILE__, 3) . "/Config/database.php");
+    }
+
+    public function loadTestConfig()
+    {
+        $this->config = new Config(include dirname(__FILE__, 3) . "/Config/test_database.php");
     }
 }

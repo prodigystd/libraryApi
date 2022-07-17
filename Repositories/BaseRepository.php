@@ -4,18 +4,19 @@
 namespace LibraryApi\Repositories;
 
 use LibraryApi\Microkernel\Container\Container;
-use LibraryApi\Modules\Database\DataBaseDriverInterface;
+use LibraryApi\Microkernel\Microkernel;
+use LibraryApi\Modules\Database\DatabaseDriverInterface;
+use LibraryApi\Modules\Database\DatabaseModule;
 
 class BaseRepository
 {
-    /**
-     * @var DataBaseDriverInterface $dataBase
-     */
-    protected $dataBase;
-
-    public function __construct()
+    protected function getDatabase(): DatabaseDriverInterface
     {
-        $this->dataBase = Container::instance()->make(DataBaseDriverInterface::class);
+        return Container::instance()->make(DatabaseDriverInterface::class);
     }
 
+    protected function select(string $sqlQuery, array $params = []): array
+    {
+        return $this->getDatabase()->select($sqlQuery, $params);
+    }
 }

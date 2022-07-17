@@ -3,6 +3,7 @@
 namespace LibraryApi\Modules\Router;
 
 use LibraryApi\Microkernel\Container\ContainerInterface;
+use LibraryApi\Middleware\Middleware;
 
 class ApiRouter implements RouterInterface
 {
@@ -43,9 +44,19 @@ class ApiRouter implements RouterInterface
         $route = $method . ', ' . rtrim($url, "/");
 
         if (isset($this->routes[$route])) {
-            list($controllerName, $action) = explode('@', $this->routes[$route]);
+            list($controllerAction, $middlewareClass) = $this->routes[$route];
+            list($controllerName, $action) = explode('@', $controllerAction);
             $controller = $this->container->make($this->controllerNamespace . '\\' . $controllerName);
-            echo call_user_func([$controller, $action]);
+
+            /** @var Middleware $middleware */
+            $middleware = new $middlewareClass;
+
+            if ($middleware instanceof Middleware) {
+                echo $middleware->handle([$controller, $action]);
+            } else {
+                echo call_user_func([$controller, $action]);
+            }
+
         } else {
             $controller = new \LibraryApi\Controllers\ApiController();
             echo $controller->response(['error' => 'Route is not found'], 404);

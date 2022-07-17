@@ -19,7 +19,8 @@ final class BookTest extends TestCase
     {
         $response = $this->baseApi->client->get('/books', [
             'query' => [
-                'author_name' => 'Joanne'
+                'author_name' => 'Joanne',
+                'is_test' => true
             ]
         ]);
 
@@ -33,7 +34,8 @@ final class BookTest extends TestCase
     {
         $response = $this->baseApi->client->get('/books', [
             'query' => [
-                'author_count' => 2
+                'author_count' => 2,
+                'is_test' => true
             ]
         ]);
 

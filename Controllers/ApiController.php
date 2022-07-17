@@ -3,9 +3,6 @@
 
 namespace LibraryApi\Controllers;
 
-
-use http\Env\Request;
-
 class ApiController
 {
     protected function getQueryParams(): array

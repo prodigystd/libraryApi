@@ -19,5 +19,5 @@ interface ContainerInterface
      * @param array $parameters
      * @return object
      */
-    public function make($class, array $parameters = []): object;
+    public function make($class, array $parameters = []): mixed;
 }

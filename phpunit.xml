@@ -1,0 +1,6 @@
+<phpunit
+        colors="true"
+        bootstrap="Tests/autoloader.php"
+>
+
+</phpunit>

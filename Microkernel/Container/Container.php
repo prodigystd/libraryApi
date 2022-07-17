@@ -62,7 +62,7 @@ class Container implements ContainerInterface
      * @param array $parameters (optional) -- parameters as array . If constructor need any parameter
      * @throws \ReflectionException
      */
-    public function make($class, array $parameters = []): object
+    public function make($class, array $parameters = []): mixed
     {
         $reflectionClass = new ReflectionClass($class);
         $constructor = $reflectionClass->getConstructor();

@@ -4,8 +4,11 @@
 namespace LibraryApi\Modules\Database;
 
 
-class MySqlDriver implements DataBaseDriverInterface
+class MySqlDriver implements DatabaseDriverInterface
 {
+    /**
+     * @var mysqli|bool
+     */
     private $connection;
 
     /**
@@ -17,6 +20,11 @@ class MySqlDriver implements DataBaseDriverInterface
     public function setConfig(Config $config)
     {
         $this->config = $config;
+    }
+
+    public function getConfig(): Config
+    {
+        return $this->config;
     }
 
     public function select(string $sqlQuery, array $params = []): array
@@ -35,6 +43,19 @@ class MySqlDriver implements DataBaseDriverInterface
 
         $this->close();
         return $allRows;
+    }
+
+    public function execute(string $sqlQuery, array $params = []): bool
+    {
+        $this->connect();
+        $preparedStatement = $this->connection->prepare($sqlQuery);
+        foreach ($params as $paramType => $paramValue) {
+            $preparedStatement->bind_param($paramType, $paramValue);
+        }
+        $result = $preparedStatement->execute();
+
+        $this->close();
+        return $result;
     }
 
     private function connect()

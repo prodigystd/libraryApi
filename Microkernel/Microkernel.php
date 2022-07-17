@@ -25,23 +25,27 @@ class Microkernel
     }
 
 
-    public function boot(): void
+    public function boot(ContainerInterface $container): void
     {
         $this->loadModules();
 
-        /** @var ContainerInterface $container */
-        $container = Container::instance();
+        $container->bind(static::class, $this);
         foreach ($this->moduleClasses as $moduleClass) {
             $module = new $moduleClass;
             $module->setContainer($container);
             $module->register();
-            $this->modules[] = $module;
+            $this->modules[$moduleClass] = $module;
         }
 
         foreach ($this->modules as $module) {
             $module->boot();
         }
 
+    }
+
+    public function getModule(string $moduleClass): ?ModuleInterface
+    {
+        return $this->modules[$moduleClass] ?? null;
     }
 
 }
