@@ -15,5 +15,8 @@ local-down:
 local-bash:
 	docker exec -it library_api_php bash
 
+local-test:
+	docker exec -it library_api_php bash -c "composer install; php vendor/bin/phpunit Tests/Feature/"
+
 local-db:
 	docker exec -it library_api_db bash

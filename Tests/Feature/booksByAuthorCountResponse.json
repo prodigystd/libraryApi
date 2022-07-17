@@ -1,0 +1,12 @@
+{
+  "data": [
+    {
+      "id": null,
+      "name": "Good Omens",
+      "description": "The book is a comedy about the birth of the son of Satan and the coming of the End Times. There are attempts by the angel Aziraphale and the demon Crowley to sabotage the coming of the end times, having grown accustomed to their comfortable surroundings in England.",
+      "year": 1990,
+      "genre": "Fantasy",
+      "author_count": 2
+    }
+  ]
+}

@@ -15,9 +15,13 @@ it is forbidden to use any frameworks or program libraries
 
 
 # Usage:
-In the root folder run:
-make local-start
+In the root folder run:<br />
 
+Installation:<br />
+make local-start<br />
+
+Run tests:<br />
+make local-test<br />
 
 # API description:
 
@@ -59,8 +63,14 @@ http://localhost:8080/books?author_count=2<br />
 
 
 # Использование:
-В корневой папке запустить:
-make local-start
+В корневой папке запустить:<br />
+
+Установка:<br />
+make local-start<br />
+
+Запуск тестов:<br />
+make local-test<br />
+
 
 # Описание api:
 
