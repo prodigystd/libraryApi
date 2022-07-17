@@ -1,6 +1,7 @@
 version: '3'
 services:
   php-fpm:
+    container_name: library_api_php
     build: Docker/php-fpm
     ports:
       - "9000:9000"
@@ -11,6 +12,7 @@ services:
     networks:
       - internal
   nginx:
+    container_name: library_api_nginx
     build: Docker/nginx
     ports:
       - "8080:80"
@@ -22,7 +24,7 @@ services:
     networks:
       - internal
   db:
-    container_name: libraryapi_db
+    container_name: library_api_db
     ports:
       - "3306:3306"
     image: mysql:5.7
