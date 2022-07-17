@@ -12,8 +12,8 @@ class Authors extends JsonResource
             if (!isset($formattedData[$row['id']])) {
                 $formattedData[$row['id']]['id'] = $row['id'];
                 $formattedData[$row['id']]['fullname'] = $row['fullname'];
-                $formattedData[$row['id']]['birth_date'] = $row['id'];
-                $formattedData[$row['id']]['description'] = $row['id'];
+                $formattedData[$row['id']]['birth_date'] = $row['birth_date'];
+                $formattedData[$row['id']]['description'] = $row['description'];
             }
 
             $book = [];
