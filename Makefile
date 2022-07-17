@@ -1,7 +1,7 @@
 # Local
 
 local-start:
-	docker-compose -f Docker/docker-compose.yml up
+	docker-compose -f Docker/docker-compose.yml up -d
 
 local-build:
 	docker-compose -f Docker/docker-compose.yml build
