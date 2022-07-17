@@ -81,7 +81,7 @@ class Container implements ContainerInterface
 
             if ($type && $type instanceof ReflectionNamedType) {
                 // make instance of the param class and push it to $dependencies array
-                $dependencies[] = $this->createInstance($constructorParam->getClass());
+                $dependencies[] = $this->createInstance(new ReflectionClass($type->getName()));
 
             } else {
 

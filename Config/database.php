@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'host' => 'libraryapi_db',
+    'host' => 'library_api_db',
     'userName' => 'library',
     'password' => 'library',
     'dataBaseName' => 'library',

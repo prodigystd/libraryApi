@@ -2,22 +2,22 @@ version: '3'
 services:
   php-fpm:
     container_name: library_api_php
-    build: Docker/php-fpm
+    build: php-fpm
     ports:
       - "9000:9000"
     volumes:
-      - ./:/var/www/html/
+      - .././:/var/www/html/
     links:
       - db
     networks:
       - internal
   nginx:
     container_name: library_api_nginx
-    build: Docker/nginx
+    build: nginx
     ports:
       - "8080:80"
     volumes:
-      - ./:/var/www/html/
+      - .././:/var/www/html/
     links:
       - db
       - php-fpm
@@ -30,8 +30,8 @@ services:
     image: mysql:5.7
     restart: always
     volumes:
-      - ./:/var/www/html/
-      - ./dump.sql:/docker-entrypoint-initdb.d/init.sql
+      - .././:/var/www/html/
+      - ./../dump.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       MYSQL_DATABASE: library
       MYSQL_USER: library
