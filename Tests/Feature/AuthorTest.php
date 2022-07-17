@@ -24,7 +24,7 @@ final class AuthorTest extends TestCase
         ]);
 
         $this->baseApi->assertJsonResponseContainsJsonFile(
-            __DIR__ . '/authorByBookResponse.json',
+            __DIR__ . '/ExpectedResponses/authorByBookResponse.json',
             $response
         );
     }

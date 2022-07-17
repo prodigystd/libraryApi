@@ -24,7 +24,7 @@ final class BookTest extends TestCase
         ]);
 
         $this->baseApi->assertJsonResponseContainsJsonFile(
-            __DIR__ . '/booksByAuthorResponse.json',
+            __DIR__ . '/ExpectedResponses/booksByAuthorResponse.json',
             $response
         );
     }
@@ -38,7 +38,7 @@ final class BookTest extends TestCase
         ]);
 
         $this->baseApi->assertJsonResponseContainsJsonFile(
-            __DIR__ . '/booksByAuthorCountResponse.json',
+            __DIR__ . '/ExpectedResponses/booksByAuthorCountResponse.json',
             $response
         );
     }
