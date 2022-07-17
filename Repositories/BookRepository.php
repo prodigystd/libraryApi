@@ -12,7 +12,10 @@ class BookRepository extends BaseRepository implements BookRepositoryInterface
         return $this->dataBase
             ->select(
                 'SELECT 
-                                author.fullname AS author_name, 
+                                author.id AS author_id, 
+                                author.fullname AS author_fullname, 
+                                author.birth_date AS author_birth_date, 
+                                author.description AS author_description, 
                                 book.* 
                             FROM 
                                 book 
@@ -49,4 +52,14 @@ class BookRepository extends BaseRepository implements BookRepositoryInterface
     }
 
 
+    public function getAll(): array
+    {
+        return $this->dataBase
+            ->select(
+                'SELECT 
+                                    *
+                                FROM 
+                                    book'
+            );
+    }
 }

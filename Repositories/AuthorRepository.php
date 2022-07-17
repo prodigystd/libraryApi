@@ -12,8 +12,12 @@ class AuthorRepository extends BaseRepository implements AuthorRepositoryInterfa
         return $this->dataBase
             ->select(
                 'SELECT 
+                                author.*,
+                                book.id AS book_id, 
                                 book.name AS book_name, 
-                                author.* 
+                                book.description AS book_description, 
+                                book.year AS book_year, 
+                                book.genre AS book_genre
                             FROM 
                                 author 
                             INNER JOIN 
@@ -25,4 +29,23 @@ class AuthorRepository extends BaseRepository implements AuthorRepositoryInterfa
     }
 
 
+    public function getAll(): array
+    {
+        return $this->dataBase
+            ->select(
+                'SELECT 
+                                author.*,
+                                book.id AS book_id, 
+                                book.name AS book_name, 
+                                book.description AS book_description, 
+                                book.year AS book_year, 
+                                book.genre AS book_genre
+                            FROM 
+                                author 
+                            INNER JOIN 
+                                    author_book ON author_book.author_id = author.id
+                            INNER JOIN 
+                                    book ON book.id = author_book.book_id'
+            );
+    }
 }

@@ -10,4 +10,5 @@ interface BookRepositoryInterface
 
     public function getByAuthorCount($authorCount): array;
 
+    public function getAll(): array;
 }

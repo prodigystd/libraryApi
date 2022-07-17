@@ -27,5 +27,8 @@ class ApiController
         return json_encode($data);
     }
 
-
+    public function serialize(array $data): array
+    {
+        return ['data' => $data];
+    }
 }
