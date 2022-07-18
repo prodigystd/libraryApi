@@ -27,7 +27,7 @@ services:
     container_name: library_api_db
     ports:
       - "3306:3306"
-    image: mysql:5.7
+    image: mysql:8
     restart: always
     volumes:
       - .././:/var/www/html/
