@@ -44,12 +44,19 @@ class ApiRouter implements RouterInterface
         $route = $method . ', ' . rtrim($url, "/");
 
         if (isset($this->routes[$route])) {
-            list($controllerAction, $middlewareClass) = $this->routes[$route];
+            $routeAction = $this->routes[$route];
+
+            if (is_array($routeAction)) {
+                list($controllerAction, $middlewareClass) = $routeAction;
+                /** @var Middleware $middleware */
+                $middleware = new $middlewareClass;
+            } else {
+                $controllerAction = $routeAction;
+                $middleware = null;
+            }
+
             list($controllerName, $action) = explode('@', $controllerAction);
             $controller = $this->container->make($this->controllerNamespace . '\\' . $controllerName);
-
-            /** @var Middleware $middleware */
-            $middleware = new $middlewareClass;
 
             if ($middleware instanceof Middleware) {
                 echo $middleware->handle([$controller, $action]);

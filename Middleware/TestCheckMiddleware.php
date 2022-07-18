@@ -10,8 +10,8 @@ class TestCheckMiddleware extends Middleware
 {
     public function handle(callable $action): string
     {
-        // set up test database connection
         if ($this->getQueryParam('is_test')) {
+            // set up test database connection
             /** @var Microkernel $microkernel */
             $microkernel = Container::instance()->make(Microkernel::class);
             /** @var DatabaseModule $databaseModule */

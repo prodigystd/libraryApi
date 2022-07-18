@@ -1,13 +1,10 @@
 <?php
 namespace LibraryApi\Middleware;
 
-abstract class Middleware
+use LibraryApi\Controllers\ApiController;
+
+abstract class Middleware extends ApiController
 {
     abstract public function handle(callable $action): string;
-
-    protected function getQueryParam(string $param)
-    {
-        return $_GET[$param] ?? null;
-    }
 
 }
