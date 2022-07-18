@@ -15,12 +15,59 @@ final class BookTest extends TestCase
         $this->baseApi->setUp();
     }
 
+    public function testBooks(): void
+    {
+        $response = $this->baseApi->client->get('/books', [
+            'query' => [
+                'is_test' => true
+            ]
+        ]);
+
+        $this->baseApi->assertJsonResponseContainsJsonFile(
+            __DIR__ . '/ExpectedResponses/booksResponse.json',
+            $response
+        );
+    }
+
+
+    public function testBookByEmptyAuthor(): void
+    {
+        $response = $this->baseApi->client->get('/books', [
+            'query' => [
+                'is_test' => true,
+                'author_name' => ' '
+            ]
+        ]);
+
+        $this->baseApi->assertJsonResponseContainsJsonFile(
+            __DIR__ . '/ExpectedResponses/booksResponse.json',
+            $response
+        );
+    }
+
+
+    public function testBookByEmptyAuthorCount(): void
+    {
+        $response = $this->baseApi->client->get('/books', [
+            'query' => [
+                'is_test' => true,
+                'author_count' => ' '
+            ]
+        ]);
+
+        $this->baseApi->assertJsonResponseContainsJsonFile(
+            __DIR__ . '/ExpectedResponses/booksResponse.json',
+            $response
+        );
+    }
+
+
     public function testBookByAuthor(): void
     {
         $response = $this->baseApi->client->get('/books', [
             'query' => [
-                'author_name' => 'Joanne',
-                'is_test' => true
+                'is_test' => true,
+                'author_name' => 'Joanne'
             ]
         ]);
 
@@ -34,8 +81,8 @@ final class BookTest extends TestCase
     {
         $response = $this->baseApi->client->get('/books', [
             'query' => [
-                'author_count' => 2,
-                'is_test' => true
+                'is_test' => true,
+                'author_count' => 2
             ]
         ]);
 
@@ -44,10 +91,6 @@ final class BookTest extends TestCase
             $response
         );
     }
-
-
-
-
 
 
 }

@@ -15,12 +15,41 @@ final class AuthorTest extends TestCase
         $this->baseApi->setUp();
     }
 
+    public function testAuthors(): void
+    {
+        $response = $this->baseApi->client->get('/authors', [
+            'query' => [
+                'is_test' => true
+            ]
+        ]);
+
+        $this->baseApi->assertJsonResponseContainsJsonFile(
+            __DIR__ . '/ExpectedResponses/authorsResponse.json',
+            $response
+        );
+    }
+
+    public function testAuthorEmptyBook(): void
+    {
+        $response = $this->baseApi->client->get('/authors', [
+            'query' => [
+                'is_test' => true,
+                'book_name' => ' ',
+            ]
+        ]);
+
+        $this->baseApi->assertJsonResponseContainsJsonFile(
+            __DIR__ . '/ExpectedResponses/authorsResponse.json',
+            $response
+        );
+    }
+
     public function testAuthorByBook(): void
     {
         $response = $this->baseApi->client->get('/authors', [
             'query' => [
-                'book_name' => 'Harry',
-                'is_test' => true
+                'is_test' => true,
+                'book_name' => 'Harry'
             ]
         ]);
 

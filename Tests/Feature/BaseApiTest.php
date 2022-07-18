@@ -10,25 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class BaseApiTest extends TestCase
 {
-    private static DatabaseDriverInterface $dataBase;
     public Client $client;
-
-//    public static function setUpBeforeClass(): void
-//    {
-//        $module = new DatabaseModule();
-//        $module->setContainer(Container::instance());
-//        $module->registerTest();
-//
-//        static::$dataBase = Container::instance()->make(DatabaseDriverInterface::class);
-//
-//    }
-//
-//    public static function tearDownAfterClass(): void
-//    {
-//        static::$dataBase->execute(
-//            'DROP DATABASE ' . static::$dataBase->getConfig()->get('dataBaseName'),
-//        );
-//    }
 
     public function setUp(): void
     {
@@ -75,7 +57,6 @@ class BaseApiTest extends TestCase
             }
         });
     }
-
 
 
 }
