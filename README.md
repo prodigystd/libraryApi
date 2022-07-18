@@ -23,6 +23,11 @@ make local-start<br />
 Run tests:<br />
 make local-test<br />
 
+# The project architecture:
+The project implements microkernel architecture(microkernel + plugins)
+and MVC pattern(Layered architecture). Plugins are named as modules in this microkernel architecture 
+implementation.
+
 # API description:
 
 Listing all books by the same author:<br />
@@ -71,8 +76,12 @@ make local-start<br />
 Запуск тестов:<br />
 make local-test<br />
 
+# Архитектура проекта:
+Проект реализует микроядерную архитектуру (микроядро + плагины)
+и MVC паттерн (Многоуровневая архитектура). Плагины названы модулями(Modules) в данной реализации микроядерной
+архитектуры.
 
-# Описание api:
+# Описание API:
 
 выдача всех книг одного автора:<br />
 Тип запроса: GET <br />
