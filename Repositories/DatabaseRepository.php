@@ -8,15 +8,21 @@ use LibraryApi\Microkernel\Microkernel;
 use LibraryApi\Modules\Database\DatabaseDriverInterface;
 use LibraryApi\Modules\Database\DatabaseModule;
 
-class BaseRepository
+class DatabaseRepository
 {
-    protected function getDatabase(): DatabaseDriverInterface
+    /**
+     * @var DatabaseDriverInterface $database
+     */
+    protected $database;
+
+    public function __construct()
     {
-        return Container::instance()->make(DatabaseDriverInterface::class);
+        $this->database = Container::instance()->make(DatabaseDriverInterface::class);
+
     }
 
     protected function select(string $sqlQuery, array $params = []): array
     {
-        return $this->getDatabase()->select($sqlQuery, $params);
+        return $this->database->select($sqlQuery, $params);
     }
 }

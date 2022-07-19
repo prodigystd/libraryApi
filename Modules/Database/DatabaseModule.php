@@ -22,13 +22,12 @@ class DatabaseModule extends BaseModule implements ModuleInterface
         $this->container->bind(DatabaseDriverInterface::class, $database);
     }
 
-    public function registerTest()
+    public function useTestConfig()
     {
         $this->loadTestConfig();
         /** @var DatabaseDriverInterface $database */
-        $database = new MySqlDriver();
+        $database = $this->container->make(DatabaseDriverInterface::class);
         $database->setConfig($this->config);
-        $this->container->bind(DatabaseDriverInterface::class, $database);
     }
 
     public function boot()

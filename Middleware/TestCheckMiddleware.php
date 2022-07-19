@@ -16,7 +16,7 @@ class TestCheckMiddleware extends Middleware
             $microkernel = Container::instance()->make(Microkernel::class);
             /** @var DatabaseModule $databaseModule */
             $databaseModule = $microkernel->getModule(DatabaseModule::class);
-            $databaseModule->registerTest();
+            $databaseModule->useTestConfig();
         }
         return $action();
     }
