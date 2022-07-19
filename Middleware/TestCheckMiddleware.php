@@ -2,8 +2,7 @@
 namespace LibraryApi\Middleware;
 
 use LibraryApi\Microkernel\Container\Container;
-use LibraryApi\Microkernel\Microkernel;
-use LibraryApi\Modules\Database\DatabaseDriverInterface;
+use LibraryApi\Microkernel\MicrokernelInterface;
 use LibraryApi\Modules\Database\DatabaseModule;
 
 class TestCheckMiddleware extends Middleware
@@ -12,8 +11,8 @@ class TestCheckMiddleware extends Middleware
     {
         if ($this->getQueryParam('is_test')) {
             // set up test database connection
-            /** @var Microkernel $microkernel */
-            $microkernel = Container::instance()->make(Microkernel::class);
+            /** @var MicrokernelInterface $microkernel */
+            $microkernel = Container::instance()->make(MicrokernelInterface::class);
             /** @var DatabaseModule $databaseModule */
             $databaseModule = $microkernel->getModule(DatabaseModule::class);
             $databaseModule->useTestConfig();

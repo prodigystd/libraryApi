@@ -6,7 +6,7 @@ use LibraryApi\Microkernel\Container\Container;
 use LibraryApi\Microkernel\Container\ContainerInterface;
 use LibraryApi\Microkernel\Module\ModuleInterface;
 
-class Microkernel
+class Microkernel implements MicrokernelInterface
 {
 
     /**
@@ -29,9 +29,9 @@ class Microkernel
     {
         $this->loadModules();
 
-        $container->bind(static::class, $this);
         foreach ($this->moduleClasses as $moduleClass) {
             $module = new $moduleClass;
+            /** @var ModuleInterface $module */
             $module->setContainer($container);
             $module->register();
             $this->modules[$moduleClass] = $module;
