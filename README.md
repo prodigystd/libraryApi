@@ -15,7 +15,7 @@ it is forbidden to use any frameworks or program libraries
 
 
 # Usage:
-In the root folder run:<br />
+In the project root folder run:<br />
 
 Installation:<br />
 make local-start<br />
@@ -68,7 +68,7 @@ http://localhost:8080/books?author_count=2<br />
 
 
 # Использование:
-В корневой папке запустить:<br />
+В корневой папке проекта запустить:<br />
 
 Установка:<br />
 make local-start<br />
