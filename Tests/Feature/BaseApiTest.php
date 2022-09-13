@@ -3,9 +3,6 @@
 namespace Tests\Feature;
 
 use GuzzleHttp\Client;
-use LibraryApi\Microkernel\Container\Container;
-use LibraryApi\Modules\Database\DatabaseDriverInterface;
-use LibraryApi\Modules\Database\DatabaseModule;
 use PHPUnit\Framework\TestCase;
 
 class BaseApiTest extends TestCase
@@ -37,16 +34,11 @@ class BaseApiTest extends TestCase
         $this->arraySetIdsToNull($expectedArrayResponse);
         $this->arraySetIdsToNull($actualArrayResponse);
 
-//        $this->assertEquals($expectedArrayResponse, $actualArrayResponse);
         $this->assertJsonStringEqualsJsonString(
             json_encode($expectedArrayResponse, JSON_PRETTY_PRINT),
             json_encode($actualArrayResponse, JSON_PRETTY_PRINT)
         );
 
-//        $this->assertStringContainsString(
-//            json_encode($expectedArrayResponse, JSON_PRETTY_PRINT),
-//            json_encode($actualArrayResponse, JSON_PRETTY_PRINT)
-//        );
     }
 
     public function arraySetIdsToNull(array &$array)
