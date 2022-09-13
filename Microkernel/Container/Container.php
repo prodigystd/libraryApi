@@ -4,6 +4,7 @@ namespace LibraryApi\Microkernel\Container;
 
 use Exception;
 use ReflectionClass;
+use ReflectionException;
 use ReflectionNamedType;
 
 class Container implements ContainerInterface
@@ -60,7 +61,7 @@ class Container implements ContainerInterface
      * instantiate class with dependency and return class instance
      * @param $class - class name
      * @param array $parameters (optional) -- parameters as array . If constructor need any parameter
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function make($class, array $parameters = []): mixed
     {
@@ -113,7 +114,7 @@ class Container implements ContainerInterface
      * @param ReflectionClass $reflectionClass
      * @param array $parameters
      * @return object
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     private function createInstance(ReflectionClass $reflectionClass, array $parameters = []): object
     {

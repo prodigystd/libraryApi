@@ -2,7 +2,6 @@
 
 namespace LibraryApi\Microkernel;
 
-use LibraryApi\Microkernel\Container\Container;
 use LibraryApi\Microkernel\Container\ContainerInterface;
 use LibraryApi\Microkernel\Module\ModuleInterface;
 
