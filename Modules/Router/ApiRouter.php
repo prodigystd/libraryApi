@@ -47,7 +47,7 @@ class ApiRouter implements RouterInterface
             $routeAction = $this->routes[$route];
 
             if (is_array($routeAction)) {
-                list($controllerAction, $middlewareClass) = $routeAction;
+                [$controllerAction, $middlewareClass] = $routeAction;
                 /** @var Middleware $middleware */
                 $middleware = new $middlewareClass;
             } else {
