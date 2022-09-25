@@ -55,7 +55,7 @@ class ApiRouter implements RouterInterface
                 $middleware = null;
             }
 
-            list($controllerName, $action) = explode('@', $controllerAction);
+            [$controllerName, $action] = explode('@', $controllerAction);
             $controller = $this->container->make($this->controllerNamespace . '\\' . $controllerName);
 
             if ($middleware instanceof Middleware) {
