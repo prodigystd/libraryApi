@@ -5,6 +5,7 @@ namespace LibraryApi\Microkernel\Container;
 use Exception;
 use ReflectionClass;
 use ReflectionException;
+use ReflectionFunction;
 use ReflectionNamedType;
 
 class Container implements ContainerInterface
@@ -70,43 +71,51 @@ class Container implements ContainerInterface
         if (!$constructor) {
             return $this->createInstance($reflectionClass, $parameters);
         }
-        $constructorParams = $constructor->getParameters();
+        $dependencies = $this->resolveParams($constructor->getParameters(), $parameters);
+
+        // finally pass dependency and param to class instance
+        return $this->createInstance($reflectionClass, $dependencies);
+    }
+
+    /**
+     * Call a function with dependency and return function result
+     * @param callable $function
+     * @param array $parameters
+     * @return mixed
+     * @throws ReflectionException
+     */
+    public function call(callable $function, array $parameters = []): mixed
+    {
+        $reflectionFunction = new ReflectionFunction($function(...));
+
+        $dependencies = $this->resolveParams($reflectionFunction->getParameters(), $parameters);
+        return $function(...$dependencies);
+    }
+
+    private function resolveParams(array $params, array $paramValues): array
+    {
         $dependencies = [];
+        foreach ($params as $param) {
 
-        /*
-         * loop with constructor parameters or dependency
-         */
-        foreach ($constructorParams as $constructorParam) {
+            $type = $param->getType();
 
-            $type = $constructorParam->getType();
-
-            if ($type && $type instanceof ReflectionNamedType) {
+            if ($type && $type instanceof ReflectionNamedType && $type->getName() !== 'callable') {
                 // make instance of the param class and push it to $dependencies array
-                $dependencies[] = $this->createInstance(new ReflectionClass($type->getName()));
-
+                $dependencies[] = $this->make($type->getName());
             } else {
-
-                $name = $constructorParam->getName(); // get the name of param
-
+                $name = $param->getName(); // get the name of param
                 // check this param value exist in $parameters
-                if (array_key_exists($name, $parameters)) { // if exist
-
+                if (array_key_exists($name, $paramValues)) { // if exist
                     // push  value to $dependencies sequentially
-                    $dependencies[] = $parameters[$name];
-
+                    $dependencies[] = $paramValues[$name];
                 } else { // if not exist
-
-                    if (!$constructorParam->isOptional()) { // check if not optional
+                    if (!$param->isOptional()) { // check if not optional
                         throw new Exception("Can not resolve parameters");
                     }
-
                 }
-
             }
-
         }
-        // finally pass dependency and param to class instance
-        return $reflectionClass->newInstance(...$dependencies);
+        return $dependencies;
     }
 
 

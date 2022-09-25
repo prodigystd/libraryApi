@@ -3,6 +3,8 @@
 namespace LibraryApi\Microkernel\Container;
 
 
+use ReflectionException;
+
 interface ContainerInterface
 {
     /**
@@ -20,4 +22,13 @@ interface ContainerInterface
      * @return object
      */
     public function make($class, array $parameters = []): mixed;
+
+    /**
+     * Call a function with dependency and return function result
+     * @param callable $function
+     * @param array $parameters
+     * @return mixed
+     * @throws ReflectionException
+     */
+    public function call(callable $function, array $parameters = []): mixed;
 }

@@ -33,6 +33,7 @@ class Microkernel implements MicrokernelInterface
             /** @var ModuleInterface $module */
             $module->setContainer($container);
             $module->register();
+            $container->bind($moduleClass, $module);
             $this->modules[$moduleClass] = $module;
         }
 

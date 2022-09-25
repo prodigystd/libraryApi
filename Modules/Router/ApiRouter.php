@@ -43,31 +43,42 @@ class ApiRouter implements RouterInterface
 
         $route = $method . ', ' . rtrim($url, "/");
 
-        if (isset($this->routes[$route])) {
-            $routeAction = $this->routes[$route];
+        if (!isset($this->routes[$route])) {
+            $controller = new \LibraryApi\Controllers\ApiController();
+            echo $controller->response(['error' => 'Route is not found'], 404);
+            return;
+        }
 
-            if (is_array($routeAction)) {
+        $routeAction = $this->routes[$route];
+
+        if (is_array($routeAction)) {
+            if (isset($routeAction[1])) {
                 [$controllerAction, $middlewareClass] = $routeAction;
                 /** @var Middleware $middleware */
                 $middleware = new $middlewareClass;
+
             } else {
-                $controllerAction = $routeAction;
+                $controllerAction = $routeAction[0];
                 $middleware = null;
             }
-
-            [$controllerName, $action] = explode('@', $controllerAction);
-            $controller = $this->container->make($this->controllerNamespace . '\\' . $controllerName);
-
-            if ($middleware instanceof Middleware) {
-                echo $middleware->handle([$controller, $action]);
-            } else {
-                echo call_user_func([$controller, $action]);
-            }
-
         } else {
-            $controller = new \LibraryApi\Controllers\ApiController();
-            echo $controller->response(['error' => 'Route is not found'], 404);
+            $controllerAction = $routeAction;
+            $middleware = null;
         }
+
+        [$controllerName, $action] = explode('@', $controllerAction);
+        $controller = $this->container->make($this->controllerNamespace . '\\' . $controllerName);
+
+        if ($middleware instanceof Middleware) {
+            $callControllerAction = function (...$params) use ($controller, $action) {
+                return $this->container->call([$controller, $action], $params);
+            };
+
+            echo $this->container->call([$middleware, 'handle'], ['action' => $callControllerAction]);
+        } else {
+            echo $this->container->call([$controller, $action]);
+        }
+
     }
 
 }
