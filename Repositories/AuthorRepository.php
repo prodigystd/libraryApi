@@ -7,7 +7,7 @@ use LibraryApi\Repositories\Interfaces\AuthorRepositoryInterface;
 
 class AuthorRepository extends DatabaseRepository implements AuthorRepositoryInterface
 {
-    public function getByBook($bookName): array
+    public function getByBook(string $bookName): array
     {
         return $this->select(
                 'SELECT 

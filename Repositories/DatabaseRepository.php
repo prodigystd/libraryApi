@@ -15,7 +15,6 @@ class DatabaseRepository
     public function __construct()
     {
         $this->database = Container::instance()->make(DatabaseDriverInterface::class);
-
     }
 
     protected function select(string $sqlQuery, array $params = []): array

@@ -2,19 +2,19 @@
 
 namespace LibraryApi\Controllers;
 
-use LibraryApi\Repositories\Interfaces\AuthorRepositoryInterface;
 use LibraryApi\Resources\Authors;
+use LibraryApi\Services\Interfaces\AuthorServiceInterface;
 
 class AuthorController extends ApiController
 {
     /**
-     * @var AuthorRepositoryInterface $authorRepository
+     * @var AuthorServiceInterface $authorService
      */
-    private $authorRepository;
+    private $authorService;
 
-    public function __construct(AuthorRepositoryInterface $authorRepository)
+    public function __construct(AuthorServiceInterface $authorService)
     {
-        $this->authorRepository = $authorRepository;
+        $this->authorService = $authorService;
     }
 
     public function index(): string
@@ -22,13 +22,13 @@ class AuthorController extends ApiController
         $bookName = trim($this->getQueryParam('book_name') ?? '');
 
         if ($bookName) {
-            $authorsResource = new Authors($this->authorRepository->getByBook($bookName));
+            $authorsResource = new Authors($this->authorService->getByBook($bookName));
             return $this->response(
                 $authorsResource->serialize()
             );
         }
 
-        $authorsResource = new Authors($this->authorRepository->getAll());
+        $authorsResource = new Authors($this->authorService->getAll());
         return $this->response(
             $authorsResource->serialize()
         );

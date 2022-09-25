@@ -1,10 +1,10 @@
 <?php
 
 
-namespace LibraryApi\Repositories\Interfaces;
+namespace LibraryApi\Services\Interfaces;
 
 
-interface AuthorRepositoryInterface
+interface AuthorServiceInterface
 {
     public function getByBook(string $bookName): array;
 

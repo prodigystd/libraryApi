@@ -2,19 +2,19 @@
 
 namespace LibraryApi\Controllers;
 
-use LibraryApi\Repositories\Interfaces\BookRepositoryInterface;
 use LibraryApi\Resources\Books;
+use LibraryApi\Services\Interfaces\BookServiceInterface;
 
 class BookController extends ApiController
 {
     /**
-     * @var BookRepositoryInterface $bookRepository
+     * @var BookServiceInterface $bookService
      */
-    private $bookRepository;
+    private $bookService;
 
-    public function __construct(BookRepositoryInterface $bookRepository)
+    public function __construct(BookServiceInterface $bookService)
     {
-        $this->bookRepository = $bookRepository;
+        $this->bookService = $bookService;
     }
 
     public function index(): string
@@ -24,7 +24,7 @@ class BookController extends ApiController
 
 
         if ($authorName) {
-            $booksResource = new Books($this->bookRepository->getByAuthor($authorName));
+            $booksResource = new Books($this->bookService->getByAuthor($authorName));
             return $this->response(
                 $booksResource->serialize()
             );
@@ -32,12 +32,12 @@ class BookController extends ApiController
 
         if ($authorCount) {
             return $this->response(
-                $this->serialize($this->bookRepository->getByAuthorCount($authorCount))
+                $this->serialize($this->bookService->getByAuthorCount($authorCount))
             );
         }
 
         return $this->response(
-            $this->serialize($this->bookRepository->getAll())
+            $this->serialize($this->bookService->getAll())
         );
     }
 
