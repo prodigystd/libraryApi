@@ -66,15 +66,19 @@ class Container implements ContainerInterface
      */
     public function make($class, array $parameters = []): mixed
     {
-        $reflectionClass = new ReflectionClass($class);
-        $constructor = $reflectionClass->getConstructor();
-        if (!$constructor) {
-            return $this->createInstance($reflectionClass, $parameters);
+        $boundClass = $this->getBoundClass($class);
+        if (is_object($boundClass)) {
+            return $boundClass;
         }
-        $dependencies = $this->resolveParams($constructor->getParameters(), $parameters);
+        $reflectionClass = new ReflectionClass($boundClass);
+        $constructor = $reflectionClass->getConstructor();
+        $dependencies = [];
+        if ($constructor) {
+            $dependencies = $this->resolveParams($constructor->getParameters(), $parameters);
+        }
 
         // finally pass dependency and param to class instance
-        return $this->createInstance($reflectionClass, $dependencies);
+        return $reflectionClass->newInstance(...$dependencies);
     }
 
     /**
@@ -119,24 +123,12 @@ class Container implements ContainerInterface
     }
 
 
-    /**
-     * @param ReflectionClass $reflectionClass
-     * @param array $parameters
-     * @return object
-     * @throws ReflectionException
-     */
-    private function createInstance(ReflectionClass $reflectionClass, array $parameters = []): object
+    private function getBoundClass(string $className): string|object
     {
-        $className = $reflectionClass->getName();
         if (isset($this->bindings[$className])) {
-            $boundClass = $this->bindings[$className];
-            if (is_object($boundClass)) {
-                return $boundClass;
-            }
-            $boundReflectionClass = new ReflectionClass($boundClass);
-            return $boundReflectionClass->newInstance(...$parameters);
+            return $this->bindings[$className];
         }
-        return $reflectionClass->newInstance(...$parameters);
+        return $className;
     }
 
 }
