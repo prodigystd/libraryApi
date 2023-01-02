@@ -31,7 +31,7 @@ services:
     restart: always
     volumes:
       - .././:/var/www/html/
-      - ./../dump.sql:/docker-entrypoint-initdb.d/init.sql
+      - .././dump.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       MYSQL_DATABASE: library
       MYSQL_USER: library
