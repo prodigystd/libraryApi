@@ -10,7 +10,7 @@ class BookController extends ApiController
     /**
      * @var BookServiceInterface $bookService
      */
-    private $bookService;
+    private BookServiceInterface $bookService;
 
     public function __construct(BookServiceInterface $bookService)
     {

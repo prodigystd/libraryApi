@@ -10,7 +10,7 @@ class DatabaseRepository
     /**
      * @var DatabaseDriverInterface $database
      */
-    protected $database;
+    protected DatabaseDriverInterface $database;
 
     public function __construct()
     {

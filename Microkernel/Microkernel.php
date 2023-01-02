@@ -11,12 +11,12 @@ class Microkernel implements MicrokernelInterface
     /**
      * @var string[]
      */
-    private $moduleClasses;
+    private array $moduleClasses;
 
     /**
      * @var ModuleInterface[]
      */
-    private $modules;
+    private array $modules;
 
     private function loadModules(): void
     {

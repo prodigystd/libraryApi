@@ -10,7 +10,7 @@ class DatabaseModule extends BaseModule implements ModuleInterface
     /**
      * @var Config
      */
-    private $config;
+    private Config $config;
 
 
     public function register()

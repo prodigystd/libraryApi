@@ -10,15 +10,15 @@ class ApiRouter implements RouterInterface
     /**
      * @var array
      */
-    private $routes = [];
+    private array $routes = [];
     /**
      * @var string
      */
-    private $controllerNamespace;
+    private string $controllerNamespace;
     /**
      * @var ContainerInterface
      */
-    private $container;
+    private ContainerInterface $container;
 
 
     public function setRoutes(array $routes)

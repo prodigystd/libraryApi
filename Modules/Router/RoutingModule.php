@@ -8,7 +8,7 @@ use LibraryApi\Microkernel\Module\ModuleInterface;
 class RoutingModule extends BaseModule implements ModuleInterface
 {
 
-    private $controllerNamespace = 'LibraryApi\Controllers';
+    private string $controllerNamespace = 'LibraryApi\Controllers';
 
     /**
      * @var array

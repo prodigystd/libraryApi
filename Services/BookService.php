@@ -8,9 +8,9 @@ use LibraryApi\Services\Interfaces\BookServiceInterface;
 class BookService implements BookServiceInterface
 {
     /**
-     * @var BookServiceInterface
+     * @var BookRepositoryInterface
      */
-    private $repository;
+    private BookRepositoryInterface $repository;
 
     public function __construct(BookRepositoryInterface $bookRepository)
     {

@@ -4,17 +4,19 @@
 namespace LibraryApi\Modules\Database;
 
 
+use mysqli;
+
 class MySqlDriver implements DatabaseDriverInterface
 {
     /**
      * @var mysqli|bool
      */
-    private $connection;
+    private bool|mysqli $connection;
 
     /**
      * @var Config
      */
-    private $config;
+    private Config $config;
 
 
     public function setConfig(Config $config)

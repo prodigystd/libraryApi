@@ -10,7 +10,7 @@ class AuthorService implements AuthorServiceInterface
     /**
      * @var AuthorRepositoryInterface
      */
-    private $repository;
+    private AuthorRepositoryInterface $repository;
 
     public function __construct(AuthorRepositoryInterface $authorRepository)
     {

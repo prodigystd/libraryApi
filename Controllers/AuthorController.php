@@ -10,7 +10,7 @@ class AuthorController extends ApiController
     /**
      * @var AuthorServiceInterface $authorService
      */
-    private $authorService;
+    private AuthorServiceInterface $authorService;
 
     public function __construct(AuthorServiceInterface $authorService)
     {

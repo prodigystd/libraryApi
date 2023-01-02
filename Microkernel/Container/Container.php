@@ -13,14 +13,14 @@ class Container implements ContainerInterface
     /**
      * The container's  instance.
      *
-     * @var static
+     * @var ?static
      */
-    protected static $instance;
+    protected static ?Container $instance = null;
 
     /**
      * @var array
      */
-    private $bindings = [];
+    private array $bindings = [];
 
     private function __construct()
     {
@@ -103,7 +103,7 @@ class Container implements ContainerInterface
 
             $type = $param->getType();
 
-            if ($type && $type instanceof ReflectionNamedType && $type->getName() !== 'callable') {
+            if ($type instanceof ReflectionNamedType && $type->getName() !== 'callable') {
                 // make instance of the param class and push it to $dependencies array
                 $dependencies[] = $this->make($type->getName());
             } else {
