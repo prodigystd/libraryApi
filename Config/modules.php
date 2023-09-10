@@ -1,8 +1,12 @@
 <?php
 
 
+use LibraryApi\Modules\Database\DatabaseModule;
+use LibraryApi\Modules\Library\LibraryModule;
+use LibraryApi\Modules\Router\RoutingModule;
+
 return [
-    \LibraryApi\Modules\Router\RoutingModule::class,
-    \LibraryApi\Modules\Database\DatabaseModule::class,
-    \LibraryApi\Modules\Library\LibraryModule::class
+    RoutingModule::class,
+    DatabaseModule::class,
+    LibraryModule::class
 ];
