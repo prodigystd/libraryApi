@@ -1,6 +1,8 @@
 <?php
 
+use LibraryApi\Middleware\TestCheckMiddleware;
+
 return $routes = [
-    'GET, /books' => ['BookController@index', \LibraryApi\Middleware\TestCheckMiddleware::class],
-    'GET, /authors' => ['AuthorController@index', \LibraryApi\Middleware\TestCheckMiddleware::class],
+    'GET, /books' => ['BookController@index', TestCheckMiddleware::class],
+    'GET, /authors' => ['AuthorController@index', TestCheckMiddleware::class],
 ];
