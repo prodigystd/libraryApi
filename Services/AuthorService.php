@@ -7,14 +7,8 @@ use LibraryApi\Services\Interfaces\AuthorServiceInterface;
 
 class AuthorService implements AuthorServiceInterface
 {
-    /**
-     * @var AuthorRepositoryInterface
-     */
-    private AuthorRepositoryInterface $repository;
-
-    public function __construct(AuthorRepositoryInterface $authorRepository)
+    public function __construct(private readonly AuthorRepositoryInterface $repository)
     {
-        $this->repository = $authorRepository;
     }
 
     public function getAll(): array

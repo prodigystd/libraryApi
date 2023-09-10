@@ -7,15 +7,8 @@ use LibraryApi\Services\Interfaces\BookServiceInterface;
 
 class BookService implements BookServiceInterface
 {
-    /**
-     * @var BookRepositoryInterface
-     */
-    private BookRepositoryInterface $repository;
-
-    public function __construct(BookRepositoryInterface $bookRepository)
-    {
-        $this->repository = $bookRepository;
-    }
+    public function __construct(private readonly BookRepositoryInterface $repository)
+    {}
 
     public function getByAuthor(string $authorName): array
     {

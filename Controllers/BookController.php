@@ -7,15 +7,8 @@ use LibraryApi\Services\Interfaces\BookServiceInterface;
 
 class BookController extends ApiController
 {
-    /**
-     * @var BookServiceInterface $bookService
-     */
-    private BookServiceInterface $bookService;
-
-    public function __construct(BookServiceInterface $bookService)
-    {
-        $this->bookService = $bookService;
-    }
+    public function __construct(private readonly BookServiceInterface $bookService)
+    {}
 
     public function index(): string
     {

@@ -7,15 +7,8 @@ use LibraryApi\Services\Interfaces\AuthorServiceInterface;
 
 class AuthorController extends ApiController
 {
-    /**
-     * @var AuthorServiceInterface $authorService
-     */
-    private AuthorServiceInterface $authorService;
-
-    public function __construct(AuthorServiceInterface $authorService)
-    {
-        $this->authorService = $authorService;
-    }
+    public function __construct(private readonly AuthorServiceInterface $authorService)
+    {}
 
     public function index(): string
     {
