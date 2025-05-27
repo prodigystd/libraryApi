@@ -29,8 +29,9 @@ class BookController extends ApiController
             );
         }
 
+        $booksResource = new Books($this->bookService->getAll());
         return $this->response(
-            $this->serialize($this->bookService->getAll())
+            $booksResource->serialize()
         );
     }
 

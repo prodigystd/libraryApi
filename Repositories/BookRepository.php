@@ -54,9 +54,17 @@ class BookRepository extends DatabaseRepository implements BookRepositoryInterfa
     {
         return $this->select(
                 'SELECT 
-                                    *
+                                author.id AS author_id, 
+                                author.fullname AS author_fullname, 
+                                author.birth_date AS author_birth_date, 
+                                author.description AS author_description,
+                                book.*
                                 FROM 
-                                    book'
+                                    book
+                                INNER JOIN
+                                    author_book ON book.id = author_book.book_id
+                                INNER JOIN 
+                                    author ON author.id = author_book.author_id'
             );
     }
 }
