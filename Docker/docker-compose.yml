@@ -1,6 +1,6 @@
 version: '3'
 services:
-  php-fpm:
+  library_api_php_fpm_image:
     container_name: library_api_php
     build: php-fpm
     ports:
@@ -8,22 +8,22 @@ services:
     volumes:
       - .././:/var/www/html/
     links:
-      - db
+      - library_api_db_image
     networks:
       - internal
-  nginx:
+  library_api_nginx_image:
     container_name: library_api_nginx
-    build: nginx
+    build: custom-nginx
     ports:
       - "8080:80"
     volumes:
       - .././:/var/www/html/
     links:
-      - db
-      - php-fpm
+      - library_api_db_image
+      - library_api_php_fpm_image
     networks:
       - internal
-  db:
+  library_api_db_image:
     container_name: library_api_db
     ports:
       - "3306:3306"
