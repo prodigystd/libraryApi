@@ -2,24 +2,15 @@
 
 namespace LibraryApi\Modules\Router;
 
+use LibraryApi\Controllers\ApiController;
 use LibraryApi\Microkernel\Container\ContainerInterface;
 use LibraryApi\Middleware\Middleware;
 
 class ApiRouter implements RouterInterface
 {
-    /**
-     * @var array
-     */
     private array $routes = [];
-    /**
-     * @var string
-     */
     private string $controllerNamespace;
-    /**
-     * @var ContainerInterface
-     */
     private ContainerInterface $container;
-
 
     public function setRoutes(array $routes)
     {
@@ -44,7 +35,7 @@ class ApiRouter implements RouterInterface
         $route = $method . ', ' . rtrim($url, "/");
 
         if (!isset($this->routes[$route])) {
-            $controller = new \LibraryApi\Controllers\ApiController();
+            $controller = new ApiController();
             echo $controller->response(['error' => 'Route is not found'], 404);
             return;
         }
