@@ -1,17 +1,17 @@
 <?php
+declare(strict_types=1);
 
 namespace Tests\Feature;
-
 
 use PHPUnit\Framework\TestCase;
 
 final class BookTest extends TestCase
 {
-    private BaseApiTest $baseApi;
+    private BaseApi $baseApi;
 
     public function setUp(): void
     {
-        $this->baseApi = new BaseApiTest();
+        $this->baseApi = new BaseApi();
         $this->baseApi->setUp();
     }
 

@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace Tests\Feature;
 
@@ -7,11 +8,11 @@ use PHPUnit\Framework\TestCase;
 
 final class AuthorTest extends TestCase
 {
-    private BaseApiTest $baseApi;
+    private BaseApi $baseApi;
 
     public function setUp(): void
     {
-        $this->baseApi = new BaseApiTest();
+        $this->baseApi = new BaseApi();
         $this->baseApi->setUp();
     }
 
