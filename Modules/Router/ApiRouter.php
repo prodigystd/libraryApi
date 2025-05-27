@@ -4,7 +4,8 @@ namespace LibraryApi\Modules\Router;
 
 use LibraryApi\Controllers\ApiController;
 use LibraryApi\Microkernel\Container\ContainerInterface;
-use LibraryApi\Middleware\Middleware;
+use LibraryApi\Modules\Router\SystemMiddleware\BaseMiddleware;
+use LibraryApi\Modules\Router\SystemMiddleware\ControllerExecutionMiddleware;
 
 class ApiRouter implements RouterInterface
 {
@@ -30,9 +31,9 @@ class ApiRouter implements RouterInterface
     public function handle()
     {
         $url = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
-        $method = $_SERVER['REQUEST_METHOD'];
+        $controllerMethod = $_SERVER['REQUEST_METHOD'];
 
-        $route = $method . ', ' . rtrim($url, "/");
+        $route = $controllerMethod . ', ' . rtrim($url, "/");
 
         if (!isset($this->routes[$route])) {
             $controller = new ApiController();
@@ -41,35 +42,66 @@ class ApiRouter implements RouterInterface
         }
 
         $routeAction = $this->routes[$route];
+        $controllerAction = $routeAction[0];
 
-        if (is_array($routeAction)) {
-            if (isset($routeAction[1])) {
-                [$controllerAction, $middlewareClass] = $routeAction;
-                /** @var Middleware $middleware */
-                $middleware = new $middlewareClass;
+        [$controller, $controllerMethod] = $this->resolveController($controllerAction);
 
-            } else {
-                $controllerAction = $routeAction[0];
-                $middleware = null;
-            }
-        } else {
-            $controllerAction = $routeAction;
-            $middleware = null;
+        $callControllerAction = function (...$params) use ($controller, $controllerMethod) {
+            return $this->container->call([$controller, $controllerMethod], $params);
+        };
+
+        echo $this->container->call([$this->resolveMiddleware($callControllerAction, $routeAction), 'handle']);
+    }
+
+    private function resolveMiddleware(callable $callControllerAction, array $routeAction) : BaseMiddleware
+    {
+        $controllerExecutionMiddleware = new ControllerExecutionMiddleware($callControllerAction, []);
+
+        if (!isset($routeAction[1])) {
+            return $controllerExecutionMiddleware;
         }
 
+        $middlewareClassesArray = array_slice($routeAction, 1);
+        $middlewareInstancesArray = $this->makeMiddlewareInstances($middlewareClassesArray);
+        $middlewareInstancesArray[] = $controllerExecutionMiddleware;
+
+        return $this->createMiddlewareChain($middlewareInstancesArray);
+    }
+
+    private function resolveController($controllerAction): array
+    {
         [$controllerName, $action] = explode('@', $controllerAction);
         $controller = $this->container->make($this->controllerNamespace . '\\' . $controllerName);
+        return [$controller, $action];
+    }
 
-        if ($middleware instanceof Middleware) {
-            $callControllerAction = function (...$params) use ($controller, $action) {
-                return $this->container->call([$controller, $action], $params);
-            };
-
-            echo $this->container->call([$middleware, 'handle'], ['action' => $callControllerAction]);
-        } else {
-            echo $this->container->call([$controller, $action]);
+    private function makeMiddlewareInstances(array $middlewareClassesArray): array
+    {
+        $instances = [];
+        foreach ($middlewareClassesArray as $clientMiddlewareClass) {
+            $instances[] = $this->container->make($clientMiddlewareClass);
         }
 
+        return $instances;
+    }
+
+
+    private function createMiddlewareChain(array $middlewareInstancesArray): BaseMiddleware
+    {
+        $reverseIterator = $middlewareInstancesArray;
+        $currentMiddlewareInstance = end($reverseIterator);
+
+        while (true) {
+            $previousMiddlewareInstance = prev($reverseIterator);
+            if ($previousMiddlewareInstance === false) {
+                break;
+            }
+
+            $previousMiddlewareInstance->setNext($currentMiddlewareInstance);
+            $currentMiddlewareInstance = $previousMiddlewareInstance;
+        }
+
+        return $currentMiddlewareInstance;
     }
 
 }

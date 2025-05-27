@@ -2,14 +2,19 @@
 namespace LibraryApi\Middleware;
 
 use LibraryApi\Modules\Database\DatabaseModule;
+use LibraryApi\Modules\Router\SystemMiddleware\BaseMiddleware;
 
-class TestCheckMiddleware extends Middleware
+class TestCheckMiddleware extends BaseMiddleware
 {
-    public function handle(callable $action, DatabaseModule $databaseModule): string
+    public function __construct(private DatabaseModule $databaseModule)
+    {
+    }
+
+    public function handle(...$args): string
     {
         if ($this->getQueryParam('is_test')) {
-            $databaseModule->useTestConfig();
+            $this->databaseModule->useTestConfig();
         }
-        return $action();
+        return parent::handle();
     }
 }
