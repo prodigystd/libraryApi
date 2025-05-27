@@ -2,7 +2,7 @@
 
 namespace LibraryApi\Modules\Router\SystemMiddleware;
 
-use LibraryApi\Controllers\ApiController;
+use LibraryApi\Modules\Router\SystemController\ApiController;
 
 abstract class BaseMiddleware extends ApiController
 {
@@ -17,6 +17,5 @@ abstract class BaseMiddleware extends ApiController
     {
         return $this->next->handle();
     }
-
 
 }

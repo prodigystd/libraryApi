@@ -103,21 +103,30 @@ class Container implements ContainerInterface
 
             $type = $param->getType();
 
-            if ($type instanceof ReflectionNamedType && $type->getName() !== 'callable') {
-                // make instance of the param class and push it to $dependencies array
-                $dependencies[] = $this->make($type->getName());
-            } else {
-                $name = $param->getName(); // get the name of param
-                // check this param value exist in $parameters
-                if (array_key_exists($name, $paramValues)) { // if exist
-                    // push  value to $dependencies sequentially
-                    $dependencies[] = $paramValues[$name];
-                } else { // if not exist
-                    if (!$param->isOptional()) { // check if not optional
-                        throw new Exception("Can not resolve parameters");
-                    }
+            if ($type instanceof ReflectionNamedType) {
+
+                $typeName = $type->getName();
+
+                if ($typeName !== 'callable' && $typeName !== 'array') {
+                    // make instance of the param class and push it to $dependencies array
+                    $dependencies[] = $this->make($typeName);
+                    continue;
+                }
+
+            }
+
+            $name = $param->getName(); // get the name of param
+
+            // check this param value exist in $parameters
+            if (array_key_exists($name, $paramValues)) { // if exist
+                // push  value to $dependencies sequentially
+                $dependencies[] = $paramValues[$name];
+            } else { // if not exist
+                if (!$param->isOptional()) { // check if not optional
+                    throw new Exception("Can not resolve parameters");
                 }
             }
+
         }
         return $dependencies;
     }

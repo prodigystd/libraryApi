@@ -4,6 +4,10 @@ namespace LibraryApi\Modules\Router;
 
 use LibraryApi\Microkernel\Module\BaseModule;
 use LibraryApi\Microkernel\Module\ModuleInterface;
+use LibraryApi\Modules\Router\SystemController\ApiController;
+use LibraryApi\Modules\Router\SystemController\ApiControllerInterface;
+use LibraryApi\Modules\Router\SystemMiddleware\ControllerExecutionMiddleware;
+use LibraryApi\Modules\Router\SystemMiddleware\ControllerExecutionMiddlewareInterface;
 
 class RoutingModule extends BaseModule implements ModuleInterface
 {
@@ -18,6 +22,11 @@ class RoutingModule extends BaseModule implements ModuleInterface
     public function register()
     {
         $this->container->bind(RouterInterface::class, ApiRouter::class);
+        $this->container->bind(ApiControllerInterface::class, ApiController::class);
+        $this->container->bind(
+            ControllerExecutionMiddlewareInterface::class,
+            ControllerExecutionMiddleware::class
+        );
     }
 
     public function boot()

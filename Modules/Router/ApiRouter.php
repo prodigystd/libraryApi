@@ -2,16 +2,22 @@
 
 namespace LibraryApi\Modules\Router;
 
-use LibraryApi\Controllers\ApiController;
 use LibraryApi\Microkernel\Container\ContainerInterface;
+use LibraryApi\Modules\Router\SystemController\ApiControllerInterface;
 use LibraryApi\Modules\Router\SystemMiddleware\BaseMiddleware;
-use LibraryApi\Modules\Router\SystemMiddleware\ControllerExecutionMiddleware;
+use LibraryApi\Modules\Router\SystemMiddleware\ControllerExecutionMiddlewareInterface;
 
 class ApiRouter implements RouterInterface
 {
     private array $routes = [];
     private string $controllerNamespace;
     private ContainerInterface $container;
+
+    public function __construct(
+        private readonly ApiControllerInterface $controller,
+    )
+    {
+    }
 
     public function setRoutes(array $routes)
     {
@@ -31,44 +37,42 @@ class ApiRouter implements RouterInterface
     public function handle()
     {
         $url = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
-        $controllerMethod = $_SERVER['REQUEST_METHOD'];
+        $requestMethod = $_SERVER['REQUEST_METHOD'];
 
-        $route = $controllerMethod . ', ' . rtrim($url, "/");
+        $route = $requestMethod . ', ' . rtrim($url, "/");
 
         if (!isset($this->routes[$route])) {
-            $controller = new ApiController();
-            echo $controller->response(['error' => 'Route is not found'], 404);
+            echo $this->controller->response(['error' => 'Route is not found'], 404);
             return;
         }
 
-        $routeAction = $this->routes[$route];
-        $controllerAction = $routeAction[0];
+        $routeConfig = $this->routes[$route];
+        $controllerConfigAction = $routeConfig[0];
 
-        [$controller, $controllerMethod] = $this->resolveController($controllerAction);
+        $callableControllerMethod = $this->resolveControllerCallableMethod($controllerConfigAction);
 
-        $callControllerAction = function (...$params) use ($controller, $controllerMethod) {
-            return $this->container->call([$controller, $controllerMethod], $params);
-        };
-
-        echo $this->container->call([$this->resolveMiddleware($callControllerAction, $routeAction), 'handle']);
+        echo $this->container->call([$this->resolveMiddleware($callableControllerMethod, $routeConfig), 'handle']);
     }
 
-    private function resolveMiddleware(callable $callControllerAction, array $routeAction) : BaseMiddleware
+    private function resolveMiddleware(callable $callControllerAction, array $routeConfig) : BaseMiddleware
     {
-        $controllerExecutionMiddleware = new ControllerExecutionMiddleware($callControllerAction, []);
+        $controllerExecutionMiddleware = $this->container->make(
+            ControllerExecutionMiddlewareInterface::class,
+            ['action' => $callControllerAction, 'params' => [] ]
+        );
 
-        if (!isset($routeAction[1])) {
+        if (!isset($routeConfig[1])) {
             return $controllerExecutionMiddleware;
         }
 
-        $middlewareClassesArray = array_slice($routeAction, 1);
+        $middlewareClassesArray = array_slice($routeConfig, 1);
         $middlewareInstancesArray = $this->makeMiddlewareInstances($middlewareClassesArray);
         $middlewareInstancesArray[] = $controllerExecutionMiddleware;
 
         return $this->createMiddlewareChain($middlewareInstancesArray);
     }
 
-    private function resolveController($controllerAction): array
+    private function resolveControllerCallableMethod($controllerAction): callable
     {
         [$controllerName, $action] = explode('@', $controllerAction);
         $controller = $this->container->make($this->controllerNamespace . '\\' . $controllerName);

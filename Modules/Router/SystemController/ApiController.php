@@ -1,9 +1,10 @@
 <?php
 
 
-namespace LibraryApi\Controllers;
+namespace LibraryApi\Modules\Router\SystemController;
 
-class ApiController
+
+class ApiController implements ApiControllerInterface
 {
     protected function getQueryParams(): array
     {

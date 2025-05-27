@@ -4,6 +4,7 @@ namespace LibraryApi\Controllers;
 
 use LibraryApi\Resources\Books;
 use LibraryApi\Services\Interfaces\BookServiceInterface;
+use LibraryApi\Modules\Router\SystemController\ApiController;
 
 class BookController extends ApiController
 {

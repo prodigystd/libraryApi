@@ -4,6 +4,7 @@ namespace LibraryApi\Controllers;
 
 use LibraryApi\Resources\Authors;
 use LibraryApi\Services\Interfaces\AuthorServiceInterface;
+use LibraryApi\Modules\Router\SystemController\ApiController;
 
 class AuthorController extends ApiController
 {
