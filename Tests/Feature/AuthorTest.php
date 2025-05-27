@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature;
+namespace LibraryApi\Tests\Feature;
 
 
 use PHPUnit\Framework\TestCase;
