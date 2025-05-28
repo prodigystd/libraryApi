@@ -36,22 +36,27 @@ class ApiRouter implements RouterInterface
 
     public function handle()
     {
-        $url = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
-        $requestMethod = $_SERVER['REQUEST_METHOD'];
+        $requestRoute = $this->createRequestRoute();
 
-        $route = $requestMethod . ', ' . rtrim($url, "/");
-
-        if (!isset($this->routes[$route])) {
+        if (!isset($this->routes[$requestRoute])) {
             echo $this->routeNotFoundMiddleware->handle();
             return;
         }
 
-        $routeConfig = $this->routes[$route];
+        $routeConfig = $this->routes[$requestRoute];
         $controllerConfigAction = $routeConfig[0];
 
         $callableControllerMethod = $this->resolveControllerCallableMethod($controllerConfigAction);
 
         echo $this->container->call([$this->resolveMiddleware($callableControllerMethod, $routeConfig), 'handle']);
+    }
+
+    private function createRequestRoute(): string
+    {
+        $url = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
+        $requestMethod = $_SERVER['REQUEST_METHOD'];
+
+        return $requestMethod . ', ' . rtrim($url, "/");
     }
 
     private function resolveMiddleware(callable $callControllerAction, array $routeConfig) : BaseMiddleware
