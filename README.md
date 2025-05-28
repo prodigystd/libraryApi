@@ -34,20 +34,20 @@ Listing all books by the same author:<br />
 Request type: GET <br />
 Parameter: author_name<br />
 Parameter type: string<br />
-http://localhost:8080/books?author_name=Joanne
+http://localhost:8080/books/books-by-author?author_name=Joanne
 
 Getting the author by the book:<br />
 Request type: GET <br />
 Parameter: book_name<br />
 Parameter type: string<br />
-http://localhost:8080/authors?book_name=Harry<br />
+http://localhost:8080/authors/authors-by-book?book_name=Harry <br />
 
 
 Getting a list of books written by exactly 2 co-authors. Result: book - number of coauthors:<br />
 Request type: GET <br />
 Parameter: author_count<br />
 Parameter type: integer<br />
-http://localhost:8080/books?author_count=2<br />
+http://localhost:8080/books/books-by-author-count?author_count=2 <br />
 
 
 
@@ -87,18 +87,18 @@ make local-test<br />
 Тип запроса: GET <br />
 Параметр: author_name<br />
 Тип параметра: строка<br />
-http://localhost:8080/books?author_name=Joanne
+http://localhost:8080/books/books-by-author?author_name=Joanne
 
 выдача автора по книге:<br />
 Тип запроса: GET <br />
 Параметр: book_name<br />
 Тип параметра: строка<br />
-http://localhost:8080/authors?book_name=Harry<br />
+http://localhost:8080/authors/authors-by-book?book_name=Harry <br />
 
 
 выдача списка книг, написанных ровно 2 соавторами. Результат: книга - количество соавторов:<br />
 Тип запроса: GET <br />
 Параметр: author_count<br />
 Тип параметра: целое число<br />
-http://localhost:8080/books?author_count=2<br />
+http://localhost:8080/books/books-by-author-count?author_count=2 <br />
 
