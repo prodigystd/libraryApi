@@ -32,7 +32,7 @@ final class AuthorTest extends TestCase
 
     public function testAuthorEmptyBook(): void
     {
-        $response = $this->baseApi->client->get('/authors', [
+        $response = $this->baseApi->client->get('/authors/authors-by-book', [
             'query' => [
                 'is_test' => true,
                 'book_name' => ' ',
@@ -40,14 +40,14 @@ final class AuthorTest extends TestCase
         ]);
 
         $this->baseApi->assertJsonResponseContainsJsonFile(
-            __DIR__ . '/ExpectedResponses/authorsResponse.json',
+            __DIR__ . '/ExpectedResponses/authorsEmptyResponse.json',
             $response
         );
     }
 
     public function testAuthorByBook(): void
     {
-        $response = $this->baseApi->client->get('/authors', [
+        $response = $this->baseApi->client->get('/authors/authors-by-book', [
             'query' => [
                 'is_test' => true,
                 'book_name' => 'Harry'

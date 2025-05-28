@@ -32,7 +32,7 @@ final class BookTest extends TestCase
 
     public function testBookByEmptyAuthor(): void
     {
-        $response = $this->baseApi->client->get('/books', [
+        $response = $this->baseApi->client->get('/books/books-by-author', [
             'query' => [
                 'is_test' => true,
                 'author_name' => ' '
@@ -40,31 +40,14 @@ final class BookTest extends TestCase
         ]);
 
         $this->baseApi->assertJsonResponseContainsJsonFile(
-            __DIR__ . '/ExpectedResponses/booksResponse.json',
+            __DIR__ . '/ExpectedResponses/booksEmptyResponse.json',
             $response
         );
     }
-
-
-    public function testBookByEmptyAuthorCount(): void
-    {
-        $response = $this->baseApi->client->get('/books', [
-            'query' => [
-                'is_test' => true,
-                'author_count' => ' '
-            ]
-        ]);
-
-        $this->baseApi->assertJsonResponseContainsJsonFile(
-            __DIR__ . '/ExpectedResponses/booksResponse.json',
-            $response
-        );
-    }
-
 
     public function testBookByAuthor(): void
     {
-        $response = $this->baseApi->client->get('/books', [
+        $response = $this->baseApi->client->get('/books/books-by-author', [
             'query' => [
                 'is_test' => true,
                 'author_name' => 'Joanne'
@@ -77,9 +60,24 @@ final class BookTest extends TestCase
         );
     }
 
+    public function testBookByEmptyAuthorCount(): void
+    {
+        $response = $this->baseApi->client->get('/books/books-by-author-count', [
+            'query' => [
+                'is_test' => true,
+                'author_count' => ' '
+            ]
+        ]);
+
+        $this->baseApi->assertJsonResponseContainsJsonFile(
+            __DIR__ . '/ExpectedResponses/booksEmptyResponse.json',
+            $response
+        );
+    }
+
     public function testBookByAuthorCount(): void
     {
-        $response = $this->baseApi->client->get('/books', [
+        $response = $this->baseApi->client->get('/books/books-by-author-count', [
             'query' => [
                 'is_test' => true,
                 'author_count' => 2

@@ -2,7 +2,7 @@
 
 namespace LibraryApi\Controllers;
 
-use LibraryApi\Resources\Authors;
+use LibraryApi\Resources\AuthorsByBook;
 use LibraryApi\Services\Interfaces\AuthorServiceInterface;
 use LibraryApi\Modules\Router\SystemController\ApiController;
 
@@ -13,16 +13,20 @@ class AuthorController extends ApiController
 
     public function index(): string
     {
+        return $this->response(
+            $this->serialize($this->authorService->getAll())
+        );
+    }
+
+    public function byBook(): string
+    {
         $bookName = trim($this->getQueryParam('book_name') ?? '');
 
-        if ($bookName) {
-            $authorsResource = new Authors($this->authorService->getByBook($bookName));
-            return $this->response(
-                $authorsResource->serialize()
-            );
+        if (empty($bookName)) {
+            return $this->response($this->serialize([]));
         }
 
-        $authorsResource = new Authors($this->authorService->getAll());
+        $authorsResource = new AuthorsByBook($this->authorService->getByBook($bookName));
         return $this->response(
             $authorsResource->serialize()
         );

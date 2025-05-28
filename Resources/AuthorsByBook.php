@@ -2,7 +2,7 @@
 
 namespace LibraryApi\Resources;
 
-class Authors extends JsonResource
+class AuthorsByBook extends JsonResource
 {
 
     public function serialize(): array

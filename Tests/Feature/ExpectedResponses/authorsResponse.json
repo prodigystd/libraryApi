@@ -4,83 +4,31 @@
       "id": 1,
       "fullname": "Charles Dickens",
       "birth_date": "1812-02-07",
-      "description": "An English writer and social critic. He created some of the world's best-known fictional characters and is regarded by many as the greatest novelist of the Victorian era.[1] His works enjoyed unprecedented popularity during his lifetime and, by the 20th century, critics and scholars had recognised him as a literary genius. His novels and short stories are widely read today.",
-      "books": [
-        {
-          "id": 1,
-          "name": "A Tale of Two Cities",
-          "description": "A Tale of Two Cities is an 1859 historical novel by Charles Dickens, set in London and Paris before and during the French Revolution. The novel tells the story of the French Doctor Manette, his 18-year-long imprisonment in the Bastille in Paris, and his release to live in London with his daughter Lucie whom he had never met. The story is set against the conditions that led up to the French Revolution and the Reign of Terror. ",
-          "year": 1859,
-          "genre": "Historical fiction"
-        }
-      ]
+      "description": "An English writer and social critic. He created some of the world's best-known fictional characters and is regarded by many as the greatest novelist of the Victorian era.[1] His works enjoyed unprecedented popularity during his lifetime and, by the 20th century, critics and scholars had recognised him as a literary genius. His novels and short stories are widely read today."
     },
     {
       "id": 2,
       "fullname": "Antoine de Saint-Exupéry",
       "birth_date": "1990-06-29",
-      "description": "A French writer, poet, aristocrat, journalist and pioneering aviator. He became a laureate of several of France's highest literary awards and also won the United States National Book Award.[6] He is best remembered for his novella The Little Prince (Le Petit Prince) and for his lyrical aviation writings, including Wind, Sand and Stars and Night Flight.",
-      "books": [
-        {
-          "id": 2,
-          "name": "The Little Prince",
-          "description": "The Little Prince (French: Le Petit Prince, pronounced [lə p(ə)ti pʁɛ̃s]) is a novella by French aristocrat, writer, and military aviator Antoine de Saint-Exupéry. It was first published in English and French in the United States by Reynal & Hitchcock in April 1943 and was published posthumously in France following liberation; Saint-Exupéry's works had been banned by the Vichy Regime. The story follows a young prince who visits various planets in space, including Earth, and addresses themes of loneliness, friendship, love, and loss. Despite its style as a children's book, The Little Prince makes observations about life, adults and human nature.",
-          "year": 1943,
-          "genre": "Novella"
-        }
-      ]
-    },
-    {
-      "id": 4,
-      "fullname": "Joanne Rowling",
-      "birth_date": "1965-07-31",
-      "description": "A British author and philanthropist. She wrote a seven-volume children's fantasy series, Harry Potter, published from 1997 to 2007. The series has been enormously successful: it has sold over 500 million copies, been translated into at least 70 languages, and spawned a global media franchise including films and video games. The Casual Vacancy (2012) was her first novel for adults. She writes Cormoran Strike, an ongoing crime fiction series, as Robert Galbraith.",
-      "books": [
-        {
-          "id": 3,
-          "name": "Harry Potter and the Philosopher's Stone",
-          "description": "Harry Potter and the Philosopher's Stone is a fantasy novel written by British author J. K. Rowling. The first novel in the Harry Potter series and Rowling's debut novel, it follows Harry Potter, a young wizard who discovers his magical heritage on his eleventh birthday, when he receives a letter of acceptance to Hogwarts School of Witchcraft and Wizardry. Harry makes close friends and a few enemies during his first year at the school and with the help of his friends, he faces an attempted comeback by the dark wizard Lord Voldemort, who killed Harry's parents, but failed to kill Harry when he was just 15 months old.",
-          "year": 1997,
-          "genre": "Fantasy"
-        },
-        {
-          "id": 5,
-          "name": "Harry Potter and the Chamber of Secrets",
-          "description": "Harry Potter and the Chamber of Secrets is a fantasy novel written by British author J. K. Rowling and the second novel in the Harry Potter series. The plot follows Harry's second year at Hogwarts School of Witchcraft and Wizardry, during which a series of messages on the walls of the school's corridors warn that the \"Chamber of Secrets\" has been opened and that the \"heir of Slytherin\" would kill all pupils who do not come from all-magical families. These threats are found after attacks that leave residents of the school petrified. Throughout the year, Harry and his friends Ron and Hermione investigate the attacks.",
-          "year": 1998,
-          "genre": "Fantasy"
-        }
-      ]
+      "description": "A French writer, poet, aristocrat, journalist and pioneering aviator. He became a laureate of several of France's highest literary awards and also won the United States National Book Award.[6] He is best remembered for his novella The Little Prince (Le Petit Prince) and for his lyrical aviation writings, including Wind, Sand and Stars and Night Flight."
     },
     {
       "id": 3,
       "fullname": "Terry Pratchett",
       "birth_date": "1948-04-28",
-      "description": "An English humourist, satirist, and author of fantasy novels, especially comical works.[1] He is best known for his Discworld series of 41 novels.",
-      "books": [
-        {
-          "id": 4,
-          "name": "Good Omens",
-          "description": "The book is a comedy about the birth of the son of Satan and the coming of the End Times. There are attempts by the angel Aziraphale and the demon Crowley to sabotage the coming of the end times, having grown accustomed to their comfortable surroundings in England.",
-          "year": 1990,
-          "genre": "Fantasy"
-        }
-      ]
+      "description": "An English humourist, satirist, and author of fantasy novels, especially comical works.[1] He is best known for his Discworld series of 41 novels."
+    },
+    {
+      "id": 4,
+      "fullname": "Joanne Rowling",
+      "birth_date": "1965-07-31",
+      "description": "A British author and philanthropist. She wrote a seven-volume children's fantasy series, Harry Potter, published from 1997 to 2007. The series has been enormously successful: it has sold over 500 million copies, been translated into at least 70 languages, and spawned a global media franchise including films and video games. The Casual Vacancy (2012) was her first novel for adults. She writes Cormoran Strike, an ongoing crime fiction series, as Robert Galbraith."
     },
     {
       "id": 5,
       "fullname": "Neil Gaiman",
       "birth_date": "1960-11-10",
-      "description": "An English author of short fiction, novels, comic books, graphic novels, nonfiction, audio theatre, and films. His works include the comic book series The Sandman and novels Stardust, American Gods, Coraline, and The Graveyard Book. He has won numerous awards, including the Hugo, Nebula, and Bram Stoker awards, as well as the Newbery and Carnegie medals. He is the first author to win both the Newbery and the Carnegie medals for the same work, The Graveyard Book (2008).",
-      "books": [
-        {
-          "id": 4,
-          "name": "Good Omens",
-          "description": "The book is a comedy about the birth of the son of Satan and the coming of the End Times. There are attempts by the angel Aziraphale and the demon Crowley to sabotage the coming of the end times, having grown accustomed to their comfortable surroundings in England.",
-          "year": 1990,
-          "genre": "Fantasy"
-        }
-      ]
+      "description": "An English author of short fiction, novels, comic books, graphic novels, nonfiction, audio theatre, and films. His works include the comic book series The Sandman and novels Stardust, American Gods, Coraline, and The Graveyard Book. He has won numerous awards, including the Hugo, Nebula, and Bram Stoker awards, as well as the Newbery and Carnegie medals. He is the first author to win both the Newbery and the Carnegie medals for the same work, The Graveyard Book (2008)."
     }
   ]
 }
