@@ -9,24 +9,14 @@ use LibraryApi\Modules\Router\SystemMiddleware\ControllerExecutionMiddlewareInte
 
 class ApiRouter implements RouterInterface
 {
-    private array $routes = [];
-    private string $controllerNamespace;
     private ContainerInterface $container;
 
     public function __construct(
         private readonly ApiRouteNotFoundMiddlewareInterface $routeNotFoundMiddleware,
+        private readonly array $routes,
+        private readonly string $controllerNamespace
     )
     {
-    }
-
-    public function setRoutes(array $routes)
-    {
-        $this->routes = $routes;
-    }
-
-    public function setControllerNamespace(string $controllerNamespace)
-    {
-        $this->controllerNamespace = $controllerNamespace;
     }
 
     public function setContainer(ContainerInterface $container)

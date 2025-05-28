@@ -11,13 +11,9 @@ use LibraryApi\Modules\Router\SystemMiddleware\ControllerExecutionMiddlewareInte
 
 class RoutingModule extends BaseModule implements ModuleInterface
 {
-
     private string $controllerNamespace = 'LibraryApi\Controllers';
 
-    /**
-     * @var array
-     */
-    private $routes;
+    private array $routes;
 
     public function register()
     {
@@ -38,10 +34,11 @@ class RoutingModule extends BaseModule implements ModuleInterface
         /**
          * @var RouterInterface $router
          */
-        $router = $this->container->make(RouterInterface::class);
+        $router = $this->container->make(RouterInterface::class, [
+            'controllerNamespace' => $this->controllerNamespace,
+            'routes' => $this->routes
+        ]);
         $router->setContainer($this->container);
-        $router->setControllerNamespace($this->controllerNamespace);
-        $router->setRoutes($this->routes);
         $router->handle();
     }
 

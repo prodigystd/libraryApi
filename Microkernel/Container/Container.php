@@ -107,7 +107,7 @@ class Container implements ContainerInterface
 
                 $typeName = $type->getName();
 
-                if ($typeName !== 'callable' && $typeName !== 'array') {
+                if ($typeName !== 'callable' && $typeName !== 'array' && $typeName !== 'string') {
                     // make instance of the param class and push it to $dependencies array
                     $dependencies[] = $this->make($typeName);
                     continue;

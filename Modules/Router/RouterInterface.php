@@ -3,12 +3,15 @@
 namespace LibraryApi\Modules\Router;
 
 use LibraryApi\Microkernel\Container\ContainerInterface;
+use LibraryApi\Modules\Router\SystemMiddleware\ApiRouteNotFoundMiddlewareInterface;
 
 interface RouterInterface
 {
-    public function setRoutes(array $routes);
-
-    public function setControllerNamespace(string $controllerNamespace);
+    public function __construct(
+        ApiRouteNotFoundMiddlewareInterface $routeNotFoundMiddleware,
+        array $routes,
+        string $controllerNamespace
+    );
 
     public function setContainer(ContainerInterface $container);
 
