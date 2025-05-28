@@ -6,7 +6,7 @@ use LibraryApi\Modules\Router\SystemMiddleware\BaseMiddleware;
 
 class TestCheckMiddleware extends BaseMiddleware
 {
-    public function __construct(private DatabaseModule $databaseModule)
+    public function __construct(private readonly DatabaseModule $databaseModule)
     {
     }
 

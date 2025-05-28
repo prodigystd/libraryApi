@@ -4,7 +4,7 @@
 namespace LibraryApi\Modules\Router\SystemController;
 
 
-class ApiController implements ApiControllerInterface
+abstract class ApiController
 {
     protected function getQueryParams(): array
     {

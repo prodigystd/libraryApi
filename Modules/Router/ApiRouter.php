@@ -3,7 +3,7 @@
 namespace LibraryApi\Modules\Router;
 
 use LibraryApi\Microkernel\Container\ContainerInterface;
-use LibraryApi\Modules\Router\SystemController\ApiControllerInterface;
+use LibraryApi\Modules\Router\SystemMiddleware\ApiRouteNotFoundMiddlewareInterface;
 use LibraryApi\Modules\Router\SystemMiddleware\BaseMiddleware;
 use LibraryApi\Modules\Router\SystemMiddleware\ControllerExecutionMiddlewareInterface;
 
@@ -14,7 +14,7 @@ class ApiRouter implements RouterInterface
     private ContainerInterface $container;
 
     public function __construct(
-        private readonly ApiControllerInterface $controller,
+        private readonly ApiRouteNotFoundMiddlewareInterface $routeNotFoundMiddleware,
     )
     {
     }
@@ -42,7 +42,7 @@ class ApiRouter implements RouterInterface
         $route = $requestMethod . ', ' . rtrim($url, "/");
 
         if (!isset($this->routes[$route])) {
-            echo $this->controller->response(['error' => 'Route is not found'], 404);
+            echo $this->routeNotFoundMiddleware->handle();
             return;
         }
 
