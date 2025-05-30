@@ -13,8 +13,8 @@ class ApiRouter implements RouterInterface
 
     public function __construct(
         private readonly ApiRouteNotFoundMiddlewareInterface $routeNotFoundMiddleware,
-        private readonly array $routes,
-        private readonly string $controllerNamespace
+        private readonly array                               $routes,
+        private readonly string                              $controllerNamespace
     )
     {
     }
@@ -49,11 +49,11 @@ class ApiRouter implements RouterInterface
         return $requestMethod . ', ' . rtrim($url, "/");
     }
 
-    private function resolveMiddleware(callable $callControllerAction, array $routeConfig) : BaseMiddleware
+    private function resolveMiddleware(callable $callControllerAction, array $routeConfig): BaseMiddleware
     {
         $controllerExecutionMiddleware = $this->container->make(
             ControllerExecutionMiddlewareInterface::class,
-            ['action' => $callControllerAction, 'params' => [] ]
+            ['action' => $callControllerAction, 'params' => []]
         );
 
         if (!isset($routeConfig[1])) {
@@ -76,31 +76,23 @@ class ApiRouter implements RouterInterface
 
     private function makeMiddlewareInstances(array $middlewareClassesArray): array
     {
-        $instances = [];
-        foreach ($middlewareClassesArray as $clientMiddlewareClass) {
-            $instances[] = $this->container->make($clientMiddlewareClass);
-        }
-
-        return $instances;
+        return array_map(
+            fn($clientMiddlewareClass) => $this->container->make($clientMiddlewareClass),
+            $middlewareClassesArray
+        );
     }
-
 
     private function createMiddlewareChain(array $middlewareInstancesArray): BaseMiddleware
     {
-        $reverseIterator = $middlewareInstancesArray;
-        $currentMiddlewareInstance = end($reverseIterator);
+        $reversedMiddlewareInstancesArray = array_reverse($middlewareInstancesArray);
 
-        while (true) {
-            $previousMiddlewareInstance = prev($reverseIterator);
-            if ($previousMiddlewareInstance === false) {
-                break;
-            }
-
-            $previousMiddlewareInstance->setNext($currentMiddlewareInstance);
-            $currentMiddlewareInstance = $previousMiddlewareInstance;
-        }
-
-        return $currentMiddlewareInstance;
+        return array_reduce(
+            array_slice($reversedMiddlewareInstancesArray, 1),
+            function (BaseMiddleware $currentMiddlewareInstance, BaseMiddleware $previousMiddlewareInstance) {
+                $previousMiddlewareInstance->setNext($currentMiddlewareInstance);
+                return $previousMiddlewareInstance;
+            },
+            $reversedMiddlewareInstancesArray[0]);
     }
 
 }
