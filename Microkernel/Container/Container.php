@@ -77,7 +77,6 @@ class Container implements ContainerInterface
             $dependencies = $this->resolveParams($constructor->getParameters(), $parameters);
         }
 
-        // finally pass dependency and param to class instance
         return $reflectionClass->newInstance(...$dependencies);
     }
 
@@ -96,39 +95,44 @@ class Container implements ContainerInterface
         return $function(...$dependencies);
     }
 
-    private function resolveParams(array $params, array $paramValues): array
+    private function resolveParams(array $params, array $predefinedParamValues): array
     {
         $dependencies = [];
         foreach ($params as $param) {
 
-            $type = $param->getType();
-
-            if ($type instanceof ReflectionNamedType) {
-
-                $typeName = $type->getName();
-
-                if ($typeName !== 'callable' && $typeName !== 'array' && $typeName !== 'string') {
-                    // make instance of the param class and push it to $dependencies array
-                    $dependencies[] = $this->make($typeName);
-                    continue;
-                }
-
+            $name = $param->getName();
+            if (array_key_exists($name, $predefinedParamValues)) {
+                $dependencies[] = $predefinedParamValues[$name];
+                continue;
             }
 
-            $name = $param->getName(); // get the name of param
+            if ($this->checkIfParamCanBeInstantiated($param)) {
+                $dependencies[] = $this->make($param->getType()->getName());
+                continue;
+            }
 
-            // check this param value exist in $parameters
-            if (array_key_exists($name, $paramValues)) { // if exist
-                // push  value to $dependencies sequentially
-                $dependencies[] = $paramValues[$name];
-            } else { // if not exist
-                if (!$param->isOptional()) { // check if not optional
-                    throw new Exception("Can not resolve parameters");
-                }
+            if (!$param->isOptional()) {
+                throw new Exception("Can not resolve parameters");
             }
 
         }
+
         return $dependencies;
+    }
+
+    private function checkIfParamCanBeInstantiated(\ReflectionParameter $parameter): bool
+    {
+        $type = $parameter->getType();
+
+        if (!($type instanceof ReflectionNamedType)) {
+            return false;
+        }
+
+        if ($type->isBuiltin()) {
+            return false;
+        }
+
+        return true;
     }
 
 
